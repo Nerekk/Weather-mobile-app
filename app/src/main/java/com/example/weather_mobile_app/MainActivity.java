@@ -1,8 +1,13 @@
 package com.example.weather_mobile_app;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -44,6 +49,7 @@ public class MainActivity extends FragmentActivity {
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
             }
         });
+        setBottomNavViewListeners();
     }
 
     private void createFragmentList() {
@@ -51,6 +57,16 @@ public class MainActivity extends FragmentActivity {
         fragmentList.add(new ScreenSlideFragment(R.layout.fragment_weather_main));
         fragmentList.add(new ScreenSlideFragment(R.layout.fragment_favourites_main));
         fragmentList.add(new ScreenSlideFragment(R.layout.fragment_settings_main));
+    }
+
+    private void setBottomNavViewListeners() {
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.navWeather) viewPager.setCurrentItem(0);
+            if (item.getItemId() == R.id.navFavourites) viewPager.setCurrentItem(1);
+            if (item.getItemId() == R.id.navSettings) viewPager.setCurrentItem(2);
+
+            return true;
+        });
     }
 
     // obsluga stosu
