@@ -1,22 +1,15 @@
 package com.example.weather_mobile_app;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.weather_mobile_app.Adapters.ScreenSlidePagerAdapter;
+import com.example.weather_mobile_app.Fragments.ScreenSlideFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -37,6 +30,11 @@ public class MainActivity extends FragmentActivity {
         createFragmentList();
 
         // Instantiate a ViewPager2 and a PagerAdapter.
+        viewPagerHandle();
+        setBottomNavViewListeners();
+    }
+
+    private void viewPagerHandle() {
         viewPager = findViewById(R.id.pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this, fragmentList);
         viewPager.setAdapter(pagerAdapter);
@@ -49,14 +47,13 @@ public class MainActivity extends FragmentActivity {
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
             }
         });
-        setBottomNavViewListeners();
     }
 
     private void createFragmentList() {
         fragmentList = new ArrayList<>();
-        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_weather_main));
-        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_favourites_main));
-        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_settings_main));
+        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_weather_main, true));
+        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_favourites_main, false));
+        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_settings_main, false));
     }
 
     private void setBottomNavViewListeners() {
