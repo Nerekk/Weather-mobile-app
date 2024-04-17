@@ -37,7 +37,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Pressure"
+                android:text="Humidity"
                 android:textSize="@dimen/f2HeadSize"
                 android:maxLines="1"
                 android:textAlignment="center"/>
@@ -81,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:text="1007,1mb"
+                android:text="73%"
                 android:textSize="@dimen/f2ItemSize"
                 android:maxLines="1"
                 android:textAlignment="center"/>
