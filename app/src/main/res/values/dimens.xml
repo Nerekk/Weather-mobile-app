@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="fragment1Margin">30dp</dimen>
-    <dimen name="fragment2MarginHorizontal">30dp</dimen>
-    <dimen name="fragment2MarginBottom">30dp</dimen>
+    <dimen name="fMargin">25dp</dimen>
+    <dimen name="fragment1Margin">@dimen/fMargin</dimen>
+    <dimen name="fragment2MarginHorizontal">@dimen/fMargin</dimen>
+    <dimen name="fragment2MarginBottom">@dimen/fMargin</dimen>
 </resources>
