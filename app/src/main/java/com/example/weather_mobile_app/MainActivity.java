@@ -1,7 +1,9 @@
 package com.example.weather_mobile_app;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +17,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigationView;
@@ -24,9 +26,9 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("ONCREACTE", "AHA");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         createFragmentList();
 
         // Instantiate a ViewPager2 and a PagerAdapter.
@@ -51,9 +53,9 @@ public class MainActivity extends FragmentActivity {
 
     private void createFragmentList() {
         fragmentList = new ArrayList<>();
-        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_weather_main, true));
-        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_favourites_main, false));
-        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_settings_main, false));
+        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_weather_main));
+        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_favourites_main));
+        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_settings_main));
     }
 
     private void setBottomNavViewListeners() {
