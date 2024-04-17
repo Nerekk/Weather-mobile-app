@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fragment1Margin">30dp</dimen>
+    <dimen name="fragment2MarginHorizontal">30dp</dimen>
+    <dimen name="fragment2MarginBottom">30dp</dimen>
+</resources>
