@@ -4,4 +4,8 @@
     <dimen name="fragment1Margin">@dimen/fMargin</dimen>
     <dimen name="fragment2MarginHorizontal">@dimen/fMargin</dimen>
     <dimen name="fragment2MarginBottom">@dimen/fMargin</dimen>
+    <dimen name="fItemMargin">5dp</dimen>
+
+    <dimen name="f2HeadSize">16sp</dimen>
+    <dimen name="f2ItemSize">20sp</dimen>
 </resources>
