@@ -24,63 +24,65 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvDay1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="5"
+                android:layout_weight="@integer/f3WeightDay"
                 android:text="Dzisiaj"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivDrop1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightDrop"
                 android:adjustViewBounds="true"
                 app:srcCompat="@mipmap/ic_water_drop" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tvHum1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="2"
+                android:layout_weight="@integer/f3WeightHum"
                 android:text="64%"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivDay1"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/ivNight1"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tvTempDay1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tvTempNight1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="1°"
                 android:textSize="@dimen/f3ItemSize2" />
 
@@ -93,63 +95,65 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvDay2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="5"
+                android:layout_weight="@integer/f3WeightDay"
                 android:text="Dzisiaj"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivDrop2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightDrop"
                 android:adjustViewBounds="true"
                 app:srcCompat="@mipmap/ic_water_drop" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tvHum2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="2"
+                android:layout_weight="@integer/f3WeightHum"
                 android:text="64%"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivDay2"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/ivNight2"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tvTempDay2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tvTempNight2"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="1°"
                 android:textSize="@dimen/f3ItemSize2" />
 
@@ -162,63 +166,65 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvDay3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="5"
+                android:layout_weight="@integer/f3WeightDay"
                 android:text="Dzisiaj"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivDrop3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightDrop"
                 android:adjustViewBounds="true"
                 app:srcCompat="@mipmap/ic_water_drop" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tvHum3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="2"
+                android:layout_weight="@integer/f3WeightHum"
                 android:text="64%"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivDay3"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/ivNight3"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tvTempDay3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tvTempNight3"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="1°"
                 android:textSize="@dimen/f3ItemSize2" />
 
@@ -231,63 +237,65 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvDay4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="5"
+                android:layout_weight="@integer/f3WeightDay"
                 android:text="Dzisiaj"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivDrop4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightDrop"
                 android:adjustViewBounds="true"
                 app:srcCompat="@mipmap/ic_water_drop" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tvHum4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="2"
+                android:layout_weight="@integer/f3WeightHum"
                 android:text="64%"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivDay4"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/ivNight4"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tvTempDay4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tvTempNight4"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="1°"
                 android:textSize="@dimen/f3ItemSize2" />
 
@@ -300,63 +308,65 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvDay5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="5"
+                android:layout_weight="@integer/f3WeightDay"
                 android:text="Dzisiaj"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivDrop5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightDrop"
                 android:adjustViewBounds="true"
                 app:srcCompat="@mipmap/ic_water_drop" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tvHum5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="2"
+                android:layout_weight="@integer/f3WeightHum"
                 android:text="64%"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivDay5"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/ivNight5"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tvTempDay5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tvTempNight5"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="1°"
                 android:textSize="@dimen/f3ItemSize2" />
 
@@ -369,63 +379,65 @@
             android:layout_weight="1">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvDay6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="5"
+                android:layout_weight="@integer/f3WeightDay"
                 android:text="Dzisiaj"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivDrop6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightDrop"
                 android:adjustViewBounds="true"
                 app:srcCompat="@mipmap/ic_water_drop" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tvHum6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="2"
+                android:layout_weight="@integer/f3WeightHum"
                 android:text="64%"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivDay6"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/ivNight6"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tvTempDay6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tvTempNight6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="1°"
                 android:textSize="@dimen/f3ItemSize2" />
 
@@ -438,62 +450,64 @@
             android:layout_margin="@dimen/f3TableRowMargin">
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvDay7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="@integer/f3WeightDay"
                 android:layout_gravity="center"
                 android:text="Dzisiaj"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/ivDrop7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightDrop"
                 android:layout_gravity="center"
                 android:adjustViewBounds="true"
                 app:srcCompat="@mipmap/ic_water_drop" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/tvHum7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="@integer/f3WeightHum"
                 android:layout_gravity="center"
                 android:text="64%"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
-                android:id="@+id/imageView3"
+                android:id="@+id/ivDay7"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 android:layout_gravity="center"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/ivNight7"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightIvDayNight"
                 android:layout_gravity="center"
                 app:srcCompat="@mipmap/ic_cloud" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tvTempDay7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
                 android:layout_gravity="center"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <TextView
-                android:id="@+id/textView14"
+                android:id="@+id/tvTempNight7"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="1°"
                 android:layout_gravity="center"
                 android:textSize="@dimen/f3ItemSize2" />

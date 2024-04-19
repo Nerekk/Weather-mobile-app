@@ -89,7 +89,7 @@
                 android:textAlignment="center"/>
 
             <TextView
-                android:id="@+id/tvPressure"
+                android:id="@+id/tvHumidity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -111,7 +111,7 @@
                 android:textAlignment="center"/>
 
             <TextView
-                android:id="@+id/textView16"
+                android:id="@+id/tvPressure"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
