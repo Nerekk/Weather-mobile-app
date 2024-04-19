@@ -6,6 +6,18 @@
     <dimen name="fragment2MarginBottom">@dimen/fMargin</dimen>
     <dimen name="fItemMargin">5dp</dimen>
 
-    <dimen name="f2HeadSize">16sp</dimen>
-    <dimen name="f2ItemSize">20sp</dimen>
+    <dimen name="f1LeftCity">18dp</dimen>
+    <dimen name="f1LeftAdditional">12dp</dimen>
+
+    <dimen name="f1MidTemp">60dp</dimen>
+    <dimen name="f1MidDesc">36dp</dimen>
+
+    <dimen name="f1ColumnMargin">10dp</dimen>
+
+    <dimen name="f2HeadSize">12sp</dimen>
+    <dimen name="f2ItemSize">16sp</dimen>
+
+    <dimen name="f3ItemSize">20dp</dimen>
+    <dimen name="f3ItemSize2">16dp</dimen>
+    <dimen name="f3TableRowMargin">5dp</dimen>
 </resources>
