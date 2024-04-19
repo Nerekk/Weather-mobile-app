@@ -51,6 +51,16 @@
                 android:textSize="@dimen/f2HeadSize"
                 android:maxLines="1"
                 android:textAlignment="center"/>
+
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pressure"
+                android:textSize="@dimen/f2HeadSize"
+                android:maxLines="1"
+                android:textAlignment="center" />
         </TableRow>
 
         <TableRow
@@ -60,8 +70,10 @@
 
             <ImageView
                 android:id="@+id/ivWindArrow"
+                android:adjustViewBounds="true"
                 android:layout_width="0dp"
                 android:layout_height="27dp"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 app:srcCompat="@mipmap/ic_wind_arrow" />
 
@@ -69,17 +81,18 @@
                 android:id="@+id/tvWind"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="2"
                 android:text="3,22km"
                 android:textSize="@dimen/f2ItemSize"
                 android:maxLines="1"
-                android:autoSizeTextType="uniform"
                 android:textAlignment="center"/>
 
             <TextView
                 android:id="@+id/tvPressure"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="3"
                 android:text="73%"
                 android:textSize="@dimen/f2ItemSize"
@@ -90,12 +103,23 @@
                 android:id="@+id/tvVisibility"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_weight="3"
                 android:text="3,22km"
                 android:textSize="@dimen/f2ItemSize"
                 android:maxLines="1"
                 android:textAlignment="center"/>
 
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="3"
+                android:text="1006,5mb"
+                android:textSize="@dimen/f2ItemSize"
+                android:maxLines="1"
+                android:textAlignment="center" />
 
 
         </TableRow>
