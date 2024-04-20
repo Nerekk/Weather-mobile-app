@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="f2Head" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="f2Item" parent="@style/Widget.AppCompat.TextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:autoSizeTextType">uniform</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+</resources>
