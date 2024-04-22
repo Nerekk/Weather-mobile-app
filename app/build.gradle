@@ -42,4 +42,7 @@ dependencies {
     implementation libs.viewpager2
     implementation libs.recyclerview
     implementation libs.legacy.support.v4
+    implementation libs.retrofit
+    implementation libs.gson
+    implementation libs.converter.gson
 }
