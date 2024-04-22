@@ -12,10 +12,19 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.weather_mobile_app.Adapters.ScreenSlidePagerAdapter;
 import com.example.weather_mobile_app.Fragments.ScreenSlideFragment;
+import com.example.weather_mobile_app.WeatherAPI.CurrentWeatherData;
+import com.example.weather_mobile_app.WeatherAPI.RequestWeatherService;
+import com.example.weather_mobile_app.WeatherAPI.WeatherTest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +43,26 @@ public class MainActivity extends AppCompatActivity {
         // Instantiate a ViewPager2 and a PagerAdapter.
         viewPagerHandle();
         setBottomNavViewListeners();
+
+        Log.i("START", "Startuje");
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org/data/2.5/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RequestWeatherService service = retrofit.create(RequestWeatherService.class);
+        service.getCurrentWeather("warsaw").enqueue(new Callback<CurrentWeatherData>() {
+            @Override
+            public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
+                Log.i("Success", call.request().url() + " | hej " + String.valueOf(response.body().getName()));
+            }
+
+            @Override
+            public void onFailure(Call<CurrentWeatherData> call, Throwable throwable) {
+                Log.i("Error", throwable.getMessage());
+            }
+        });
     }
 
     private void viewPagerHandle() {
