@@ -11,13 +11,14 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class WeatherFragmentForecast extends Fragment implements WeatherFragmentService{
+public class WeatherFragmentForecast extends Fragment implements WeatherFragmentService {
     List<TextView> tvDays;
     List<TextView> tvHums;
     List<ImageView> ivDays;

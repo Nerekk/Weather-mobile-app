@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 

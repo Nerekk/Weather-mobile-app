@@ -1,4 +1,4 @@
-package com.example.weather_mobile_app.Fragments;
+package com.example.weather_mobile_app.Interfaces;
 
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 

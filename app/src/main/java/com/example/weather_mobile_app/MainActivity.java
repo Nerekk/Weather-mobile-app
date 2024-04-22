@@ -11,7 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.example.weather_mobile_app.Adapters.ScreenSlidePagerAdapter;
 import com.example.weather_mobile_app.Fragments.ScreenSlideFragment;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
-import com.example.weather_mobile_app.WeatherAPI.RequestWeatherService;
+import com.example.weather_mobile_app.Interfaces.RequestWeatherService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
