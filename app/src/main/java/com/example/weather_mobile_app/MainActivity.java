@@ -5,16 +5,13 @@ import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.weather_mobile_app.Adapters.ScreenSlidePagerAdapter;
 import com.example.weather_mobile_app.Fragments.ScreenSlideFragment;
-import com.example.weather_mobile_app.WeatherAPI.CurrentWeatherData;
+import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 import com.example.weather_mobile_app.WeatherAPI.RequestWeatherService;
-import com.example.weather_mobile_app.WeatherAPI.WeatherTest;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -44,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         viewPagerHandle();
         setBottomNavViewListeners();
 
-        Log.i("START", "Startuje");
+        Log.i("START", getPackageName());
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/data/2.5/")
@@ -56,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
                 Log.i("Success", call.request().url() + " | hej " + String.valueOf(response.body().getName()));
+                ((ScreenSlidePagerAdapter)pagerAdapter).updateApi(response.body());
             }
 
             @Override
@@ -69,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this, fragmentList);
         viewPager.setAdapter(pagerAdapter);
-
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
