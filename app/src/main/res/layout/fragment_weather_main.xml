@@ -6,10 +6,11 @@
     android:layout_height="match_parent">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragmentContainerView"
+        android:id="@+id/fragmentContainerView1"
         android:name="com.example.weather_mobile_app.Fragments.WeatherFragmentBasic"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:tag="basicFragment"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,6 +21,7 @@
         android:name="com.example.weather_mobile_app.Fragments.WeatherFragmentAdditional"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:tag="additionalFragment"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -31,6 +33,7 @@
         android:name="com.example.weather_mobile_app.Fragments.WeatherFragmentForecast"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:tag="forecastFragment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,5 +51,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_percent="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>
