@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
-import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
+import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,8 +68,8 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
         }
     }
 
-    @Override
-    public void updateData(CurrentWeatherData data) {
+
+    public void updateData(ForecastWeatherData data) {
 
     }
 }

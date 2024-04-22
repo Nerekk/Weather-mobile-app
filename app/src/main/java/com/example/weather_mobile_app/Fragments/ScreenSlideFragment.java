@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.weather_mobile_app.R;
+import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 
 public class ScreenSlideFragment extends Fragment {
 
@@ -30,5 +32,12 @@ public class ScreenSlideFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+//    public void updateApi(CurrentWeatherData data) {
+//        if (layoutId == R.layout.fragment_weather_main) {
+//            WeatherFragmentBasic weatherFragmentBasic = (WeatherFragmentBasic) getChildFragmentManager().findFragmentByTag("basicFragment");
+//            Log.i("FRAGMENT", String.valueOf(weatherFragmentBasic==null));
+//        }
+//    }
 
 }

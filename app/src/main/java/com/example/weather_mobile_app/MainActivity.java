@@ -2,6 +2,7 @@ package com.example.weather_mobile_app;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentStateAdapter pagerAdapter;
     private List<Fragment> fragmentList;
 
+    RequestWeatherService apiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i("ONCREACTE", "AHA");
@@ -48,12 +51,17 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RequestWeatherService service = retrofit.create(RequestWeatherService.class);
-        service.getCurrentWeather("warsaw").enqueue(new Callback<CurrentWeatherData>() {
+        apiService = retrofit.create(RequestWeatherService.class);
+        getAPIData();
+//        ((ScreenSlidePagerAdapter)pagerAdapter).updateApi(dataPack);
+    }
+
+    private void getAPIData() {
+        apiService.getCurrentWeather("warsaw").enqueue(new Callback<CurrentWeatherData>() {
             @Override
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
                 Log.i("Success", call.request().url() + " | hej " + String.valueOf(response.body().getName()));
-                ((ScreenSlidePagerAdapter)pagerAdapter).updateApi(response.body());
+                ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(response.body());
             }
 
             @Override
@@ -61,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Error", throwable.getMessage());
             }
         });
+        Toast.makeText(this, "Api called", Toast.LENGTH_SHORT).show();
     }
 
     private void viewPagerHandle() {

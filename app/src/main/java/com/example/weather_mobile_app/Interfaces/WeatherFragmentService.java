@@ -4,5 +4,4 @@ import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherDa
 
 public interface WeatherFragmentService {
     void assignIds();
-    void updateData(CurrentWeatherData data);
 }

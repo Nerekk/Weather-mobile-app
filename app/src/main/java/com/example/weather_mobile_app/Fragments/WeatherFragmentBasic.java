@@ -43,7 +43,6 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
         ivWeather = getView().findViewById(R.id.ivWeather);
     }
 
-    @Override
     public void updateData(CurrentWeatherData data) {
         String temp = String.valueOf(data.getMain().getTemp().intValue()) + WeatherConstants.DEGREES_CELSIUS;
         String coords1 = String.valueOf(data.getCoord().getLat().intValue()) + WeatherConstants.DEGREES;

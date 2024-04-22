@@ -41,8 +41,7 @@ public class WeatherFragmentAdditional extends Fragment implements WeatherFragme
         ivWindArrow = getView().findViewById(R.id.ivWindArrow);
     }
 
-    @Override
-    public void updateData(CurrentWeatherData data) {
+    public void updateData(CurrentWeatherData dataPack) {
 
     }
 }
