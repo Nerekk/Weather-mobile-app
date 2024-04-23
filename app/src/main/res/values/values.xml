@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="f3WeightDay">5</integer>
+    <integer name="f3WeightDay">4</integer>
     <integer name="f3WeightDrop">1</integer>
-    <integer name="f3WeightHum">2</integer>
+    <integer name="f3WeightHum">1</integer>
     <integer name="f3WeightIvDayNight">1</integer>
     <integer name="f3WeightTempDayNight">1</integer>
 </resources>

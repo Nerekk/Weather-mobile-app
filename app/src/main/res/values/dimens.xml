@@ -14,7 +14,7 @@
 
     <dimen name="f1ColumnMargin">10dp</dimen>
 
-    <dimen name="f2HeadSize">12sp</dimen>
+    <dimen name="f2HeadSize">14sp</dimen>
     <dimen name="f2ItemSize">16sp</dimen>
 
     <dimen name="f3ItemSize">20dp</dimen>

@@ -59,15 +59,6 @@
                 android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
-            <ImageView
-                android:id="@+id/ivNight1"
-                android:adjustViewBounds="true"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="@integer/f3WeightIvDayNight"
-                app:srcCompat="@mipmap/ic_cloud" />
-
             <TextView
                 android:id="@+id/tvTempDay1"
                 android:layout_width="0dp"
@@ -75,16 +66,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
-                android:textSize="@dimen/f3ItemSize2" />
-
-            <TextView
-                android:id="@+id/tvTempNight1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="@integer/f3WeightTempDayNight"
-                android:text="1°"
-                android:textSize="@dimen/f3ItemSize2" />
+                android:textSize="@dimen/f3ItemSize2"
+                android:textAlignment="center"/>
 
         </TableRow>
 
@@ -130,15 +113,6 @@
                 android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
-            <ImageView
-                android:id="@+id/ivNight2"
-                android:adjustViewBounds="true"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="@integer/f3WeightIvDayNight"
-                app:srcCompat="@mipmap/ic_cloud" />
-
             <TextView
                 android:id="@+id/tvTempDay2"
                 android:layout_width="0dp"
@@ -146,16 +120,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
-                android:textSize="@dimen/f3ItemSize2" />
-
-            <TextView
-                android:id="@+id/tvTempNight2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="@integer/f3WeightTempDayNight"
-                android:text="1°"
-                android:textSize="@dimen/f3ItemSize2" />
+                android:textSize="@dimen/f3ItemSize2"
+                android:textAlignment="center"/>
 
         </TableRow>
 
@@ -201,15 +167,6 @@
                 android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
-            <ImageView
-                android:id="@+id/ivNight3"
-                android:adjustViewBounds="true"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="@integer/f3WeightIvDayNight"
-                app:srcCompat="@mipmap/ic_cloud" />
-
             <TextView
                 android:id="@+id/tvTempDay3"
                 android:layout_width="0dp"
@@ -217,16 +174,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
-                android:textSize="@dimen/f3ItemSize2" />
-
-            <TextView
-                android:id="@+id/tvTempNight3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="@integer/f3WeightTempDayNight"
-                android:text="1°"
-                android:textSize="@dimen/f3ItemSize2" />
+                android:textSize="@dimen/f3ItemSize2"
+                android:textAlignment="center" />
 
         </TableRow>
 
@@ -272,15 +221,6 @@
                 android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
-            <ImageView
-                android:id="@+id/ivNight4"
-                android:adjustViewBounds="true"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="@integer/f3WeightIvDayNight"
-                app:srcCompat="@mipmap/ic_cloud" />
-
             <TextView
                 android:id="@+id/tvTempDay4"
                 android:layout_width="0dp"
@@ -288,16 +228,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
-                android:textSize="@dimen/f3ItemSize2" />
-
-            <TextView
-                android:id="@+id/tvTempNight4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="@integer/f3WeightTempDayNight"
-                android:text="1°"
-                android:textSize="@dimen/f3ItemSize2" />
+                android:textSize="@dimen/f3ItemSize2"
+                android:textAlignment="center" />
 
         </TableRow>
 
@@ -343,15 +275,6 @@
                 android:layout_weight="@integer/f3WeightIvDayNight"
                 app:srcCompat="@mipmap/ic_cloud" />
 
-            <ImageView
-                android:id="@+id/ivNight5"
-                android:adjustViewBounds="true"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="@integer/f3WeightIvDayNight"
-                app:srcCompat="@mipmap/ic_cloud" />
-
             <TextView
                 android:id="@+id/tvTempDay5"
                 android:layout_width="0dp"
@@ -359,16 +282,8 @@
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightTempDayNight"
                 android:text="8°"
-                android:textSize="@dimen/f3ItemSize2" />
-
-            <TextView
-                android:id="@+id/tvTempNight5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="@integer/f3WeightTempDayNight"
-                android:text="1°"
-                android:textSize="@dimen/f3ItemSize2" />
+                android:textSize="@dimen/f3ItemSize2"
+                android:textAlignment="center" />
 
         </TableRow>
 
