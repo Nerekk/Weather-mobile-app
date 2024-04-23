@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import com.example.weather_mobile_app.Fragments.WeatherFragmentAdditional;
 import com.example.weather_mobile_app.Fragments.WeatherFragmentBasic;
+import com.example.weather_mobile_app.Fragments.WeatherFragmentForecast;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
+import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherData;
 
 import java.util.List;
 
@@ -43,5 +46,15 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         WeatherFragmentBasic weatherBasic = (WeatherFragmentBasic) weather.getChildFragmentManager().findFragmentByTag("basicFragment");
         Log.i("FRAGMENT", String.valueOf(weatherBasic==null));
         weatherBasic.updateData(data);
+
+        WeatherFragmentAdditional weatherAdditional = (WeatherFragmentAdditional) weather.getChildFragmentManager().findFragmentByTag("additionalFragment");
+        weatherAdditional.updateData(data);
+    }
+
+    public void updateApiForecast(ForecastWeatherData data) {
+        Fragment weather = fragmentList.get(0);
+
+        WeatherFragmentForecast weatherForecast = (WeatherFragmentForecast) weather.getChildFragmentManager().findFragmentByTag("forecastFragment");
+        weatherForecast.updateData(data);
     }
 }

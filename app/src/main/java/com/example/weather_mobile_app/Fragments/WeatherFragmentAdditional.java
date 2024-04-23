@@ -41,7 +41,17 @@ public class WeatherFragmentAdditional extends Fragment implements WeatherFragme
         ivWindArrow = getView().findViewById(R.id.ivWindArrow);
     }
 
-    public void updateData(CurrentWeatherData dataPack) {
-
+    public void updateData(CurrentWeatherData data) {
+        Integer speed = ((Double)(data.getWind().getSpeed() * 3.6)).intValue();
+        String wind = speed.toString() + "km/h";
+        Integer windDegree = data.getWind().getDeg();
+        String humidity = data.getMain().getHumidity().toString() + "%";
+        String pressure = data.getMain().getPressure().toString() + "mb";
+        String visibility = String.valueOf((data.getVisibility().doubleValue()/1000)) + "km";
+        tvWind.setText(wind);
+        ivWindArrow.setRotation(-windDegree);
+        tvHumidity.setText(humidity);
+        tvPressure.setText(pressure);
+        tvVisibility.setText(visibility);
     }
 }

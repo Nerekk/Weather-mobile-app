@@ -13,6 +13,7 @@ import com.example.weather_mobile_app.Adapters.ScreenSlidePagerAdapter;
 import com.example.weather_mobile_app.Fragments.ScreenSlideFragment;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 import com.example.weather_mobile_app.Interfaces.RequestWeatherService;
+import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherData;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -66,7 +67,21 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CurrentWeatherData> call, Throwable throwable) {
-                Log.i("Error", throwable.getMessage());
+                Log.i("Error current", throwable.getMessage());
+            }
+        });
+
+        apiService.getForecastWeather("warsaw").enqueue(new Callback<ForecastWeatherData>() {
+            @Override
+            public void onResponse(Call<ForecastWeatherData> call, Response<ForecastWeatherData> response) {
+                Log.i("Success2", call.request().url() + " | hej " + String.valueOf(response.body().getCity().getName()));
+                ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<ForecastWeatherData> call, Throwable throwable) {
+                Log.i("Error forecast", throwable.getMessage());
+
             }
         });
         Toast.makeText(this, "Api called", Toast.LENGTH_SHORT).show();

@@ -13,6 +13,11 @@ import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class WeatherFragmentBasic extends Fragment implements WeatherFragmentService {
 
     TextView tvTemp, tvCoords, tvDesc, tvCity, tvClock;
@@ -44,16 +49,32 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
     }
 
     public void updateData(CurrentWeatherData data) {
-        String temp = String.valueOf(data.getMain().getTemp().intValue()) + WeatherConstants.DEGREES_CELSIUS;
-        String coords1 = String.valueOf(data.getCoord().getLat().intValue()) + WeatherConstants.DEGREES;
-        String coords2 = String.valueOf(data.getCoord().getLon().intValue()) + WeatherConstants.DEGREES;
+        String temp = data.getMain().getTemp().intValue() + WeatherConstants.DEGREES_CELSIUS;
+        String coords1 = data.getCoord().getLat().intValue() + WeatherConstants.DEGREES;
+        String coords2 = data.getCoord().getLon().intValue() + WeatherConstants.DEGREES;
         String coords = "Lat:" + coords1 + " Lon:" + coords2;
         String desc = String.valueOf(data.getWeather().get(0).getMain());
         String city = String.valueOf(data.getName());
-//        String clock = String.valueOf(data.getMain().getTemp()) + WeatherConstants.DEGREES_CELSIUS;
+        String clock = convertTime(data);
         tvTemp.setText(temp);
         tvCoords.setText(coords);
         tvDesc.setText(desc);
         tvCity.setText(city);
+        tvClock.setText(clock);
+    }
+
+    private String convertTime(CurrentWeatherData data) {
+        int dt = data.getDt();
+        int timezone = data.getTimezone();
+
+        Instant instant = Instant.ofEpochSecond(dt);
+
+        ZoneOffset zoneOffset = ZoneOffset.ofTotalSeconds(timezone);
+
+        ZonedDateTime zonedDateTime = instant.atZone(zoneOffset);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        return zonedDateTime.format(formatter);
     }
 }
