@@ -18,6 +18,12 @@ public class CurrentWeatherData {
     @SerializedName("visibility")
     Integer visibility;
 
+    @SerializedName("dt")
+    Integer dt;
+
+    @SerializedName("timezone")
+    Integer timezone;
+
     @SerializedName("wind")
     WindClass wind;
 
@@ -26,6 +32,23 @@ public class CurrentWeatherData {
 
     @SerializedName("cod")
     Integer cod;
+
+
+    public Integer getDt() {
+        return dt;
+    }
+
+    public void setDt(Integer dt) {
+        this.dt = dt;
+    }
+
+    public Integer getTimezone() {
+        return timezone;
+    }
+
+    public void setTimezone(Integer timezone) {
+        this.timezone = timezone;
+    }
 
     public CoordClass getCoord() {
         return coord;
