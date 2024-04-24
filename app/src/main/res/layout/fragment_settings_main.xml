@@ -98,7 +98,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline7" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivRefresh"
         android:layout_width="79dp"
         android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"

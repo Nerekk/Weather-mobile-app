@@ -7,7 +7,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView1"
-        android:name="com.example.weather_mobile_app.Fragments.WeatherFragmentBasic"
+        android:name="com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentBasic"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:tag="basicFragment"
@@ -18,7 +18,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView2"
-        android:name="com.example.weather_mobile_app.Fragments.WeatherFragmentAdditional"
+        android:name="com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentAdditional"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:tag="additionalFragment"
@@ -30,7 +30,7 @@
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView3"
-        android:name="com.example.weather_mobile_app.Fragments.WeatherFragmentForecast"
+        android:name="com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentForecast"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:tag="forecastFragment"
