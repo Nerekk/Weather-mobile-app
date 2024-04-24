@@ -6,9 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.weather_mobile_app.Fragments.WeatherFragmentAdditional;
-import com.example.weather_mobile_app.Fragments.WeatherFragmentBasic;
-import com.example.weather_mobile_app.Fragments.WeatherFragmentForecast;
+import com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentAdditional;
+import com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentBasic;
+import com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentForecast;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherData;
 
