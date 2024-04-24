@@ -22,4 +22,8 @@
     <dimen name="f3TableRowMargin">5dp</dimen>
 
     <dimen name="settingsFont">24sp</dimen>
+
+    <dimen name="favouritesFont">24sp</dimen>
+    <dimen name="favouritesMargin">30dp</dimen>
+    <dimen name="favouritesHeight">50dp</dimen>
 </resources>
