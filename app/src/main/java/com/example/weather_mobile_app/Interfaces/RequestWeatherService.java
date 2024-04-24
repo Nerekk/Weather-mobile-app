@@ -8,9 +8,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface RequestWeatherService {
-    @GET("weather?appid=95e84a749af41c408381fbc6f39a0e0a&units=metric")
-    Call<CurrentWeatherData> getCurrentWeather(@Query("q") String city);
+    @GET("weather?appid=95e84a749af41c408381fbc6f39a0e0a")
+    Call<CurrentWeatherData> getCurrentWeather(@Query("units") String units, @Query("q") String city);
 
-    @GET("forecast?appid=95e84a749af41c408381fbc6f39a0e0a&units=metric")
-    Call<ForecastWeatherData> getForecastWeather(@Query("q") String city);
+    @GET("forecast?appid=95e84a749af41c408381fbc6f39a0e0a")
+    Call<ForecastWeatherData> getForecastWeather(@Query("units") String units, @Query("q") String city);
 }

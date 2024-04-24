@@ -10,7 +10,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.weather_mobile_app.Adapters.ScreenSlidePagerAdapter;
-import com.example.weather_mobile_app.Fragments.ScreenSlideFragment;
+import com.example.weather_mobile_app.Fragments.FavouritesFragment;
+import com.example.weather_mobile_app.Fragments.SettingsFragment;
+import com.example.weather_mobile_app.Fragments.Weather.WeatherFragment;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 import com.example.weather_mobile_app.Interfaces.RequestWeatherService;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherData;
@@ -32,33 +34,46 @@ public class MainActivity extends AppCompatActivity {
     private FragmentStateAdapter pagerAdapter;
     private List<Fragment> fragmentList;
 
+    public static MainActivity mainActivity;
+
     RequestWeatherService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i("ONCREACTE", "AHA");
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
+
         createFragmentList();
 
         // Instantiate a ViewPager2 and a PagerAdapter.
         viewPagerHandle();
         setBottomNavViewListeners();
 
-        Log.i("START", getPackageName());
+        mainActivity = this;
 
+        prepareAPIService();
+        getAPIData();
+
+
+//        ((ScreenSlidePagerAdapter)pagerAdapter).updateApi(dataPack);
+    }
+
+    public static MainActivity getMainActivity() {
+        return mainActivity;
+    }
+
+    private void prepareAPIService() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/data/2.5/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         apiService = retrofit.create(RequestWeatherService.class);
-        getAPIData();
-//        ((ScreenSlidePagerAdapter)pagerAdapter).updateApi(dataPack);
     }
 
-    private void getAPIData() {
-        apiService.getCurrentWeather("warsaw").enqueue(new Callback<CurrentWeatherData>() {
+    public void getAPIData() {
+        apiService.getCurrentWeather(AppConfig.getUnitsType(), "warsaw").enqueue(new Callback<CurrentWeatherData>() {
             @Override
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
                 Log.i("Success", call.request().url() + " | hej " + String.valueOf(response.body().getName()));
@@ -71,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        apiService.getForecastWeather("warsaw").enqueue(new Callback<ForecastWeatherData>() {
+        apiService.getForecastWeather(AppConfig.getUnitsType(), "warsaw").enqueue(new Callback<ForecastWeatherData>() {
             @Override
             public void onResponse(Call<ForecastWeatherData> call, Response<ForecastWeatherData> response) {
                 Log.i("Success2", call.request().url() + " | hej " + String.valueOf(response.body().getCity().getName()));
@@ -90,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     private void viewPagerHandle() {
         viewPager = findViewById(R.id.pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this, fragmentList);
+        viewPager.setSaveFromParentEnabled(false);
         viewPager.setAdapter(pagerAdapter);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -103,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void createFragmentList() {
         fragmentList = new ArrayList<>();
-        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_weather_main));
-        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_favourites_main));
-        fragmentList.add(new ScreenSlideFragment(R.layout.fragment_settings_main));
+        fragmentList.add(new WeatherFragment());
+        fragmentList.add(new FavouritesFragment());
+        fragmentList.add(new SettingsFragment());
     }
 
     private void setBottomNavViewListeners() {
