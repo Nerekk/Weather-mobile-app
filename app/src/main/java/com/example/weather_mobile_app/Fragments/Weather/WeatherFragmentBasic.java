@@ -1,4 +1,4 @@
-package com.example.weather_mobile_app.Fragments;
+package com.example.weather_mobile_app.Fragments.Weather;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
@@ -49,9 +50,9 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
     }
 
     public void updateData(CurrentWeatherData data) {
-        String temp = data.getMain().getTemp().intValue() + WeatherConstants.DEGREES_CELSIUS;
-        String coords1 = data.getCoord().getLat().intValue() + WeatherConstants.DEGREES;
-        String coords2 = data.getCoord().getLon().intValue() + WeatherConstants.DEGREES;
+        String temp = data.getMain().getTemp().intValue() + AppConfig.getDegreesType();
+        String coords1 = data.getCoord().getLat().intValue() + AppConfig.DEGREES;
+        String coords2 = data.getCoord().getLon().intValue() + AppConfig.DEGREES;
         String coords = "Lat:" + coords1 + " Lon:" + coords2;
         String desc = String.valueOf(data.getWeather().get(0).getMain());
         String city = String.valueOf(data.getName());

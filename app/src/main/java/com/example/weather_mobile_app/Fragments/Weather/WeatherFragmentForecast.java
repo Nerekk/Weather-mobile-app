@@ -1,4 +1,4 @@
-package com.example.weather_mobile_app.Fragments;
+package com.example.weather_mobile_app.Fragments.Weather;
 
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -11,23 +11,20 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastRecord;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherData;
 
-import java.time.DayOfWeek;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Set;
 
 public class WeatherFragmentForecast extends Fragment implements WeatherFragmentService {
     List<TextView> tvDays;
@@ -103,7 +100,7 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
     }
 
     private void setDayTemperature(int index, ForecastRecord record) {
-        String temperature = String.valueOf(record.getMain().getTemp().intValue()) + WeatherConstants.DEGREES;
+        String temperature = String.valueOf(record.getMain().getTemp().intValue()) + AppConfig.DEGREES;
         tvTempDays.get(index).setText(temperature);
     }
 
