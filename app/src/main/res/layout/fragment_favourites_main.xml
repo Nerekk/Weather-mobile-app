@@ -39,59 +39,56 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv" />
 
-        <TextView
-            android:id="@+id/tvLoc1"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/favouritesHeight"
-            android:layout_margin="@dimen/favouritesMargin"
-            android:text="Add localization"
-            android:textAlignment="center"
-            android:textSize="@dimen/favouritesFont"
-            android:gravity="center"
-            android:clickable="true"
-            style="@style/FavouritesTextView"
-            app:layout_constraintBottom_toTopOf="@+id/tvLoc2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline8" />
-
-        <TextView
-            android:id="@+id/tvLoc2"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/favouritesHeight"
-            android:layout_margin="@dimen/favouritesMargin"
-            android:text="Add localization"
-            android:textAlignment="center"
-            android:textSize="@dimen/favouritesFont"
-            android:gravity="center"
-            android:clickable="true"
-            style="@style/FavouritesTextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline8" />
-
-        <TextView
-            android:id="@+id/tvLoc3"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/favouritesHeight"
-            android:layout_margin="@dimen/favouritesMargin"
-            android:text="Add localization"
-            android:textAlignment="center"
-            android:textSize="@dimen/favouritesFont"
-            android:gravity="center"
-            android:clickable="true"
-            style="@style/FavouritesTextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLoc2" />
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.3" />
+            app:layout_constraintGuide_percent="0.25" />
+
+
+        <ListView
+            android:id="@+id/lvLocs"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline8" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.66" />
+
+        <ImageView
+            android:id="@+id/ivAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline12"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline9"
+            app:srcCompat="@mipmap/ic_add" />
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline12"
+            app:layout_constraintTop_toTopOf="@+id/guideline9"
+            app:srcCompat="@mipmap/ic_delete" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,8 @@ public class AppConfig {
     public static boolean isRefreshSwitchEnabled;
     public static boolean isUnitsSwitchEnabled;
 
+    public static String currentLoc;
+
     public static final String IMPERIAL = "imperial";
     public static final String METRIC = "metric";
     public static final String DEGREES = "°";
@@ -32,5 +34,13 @@ public class AppConfig {
         } else {
             return DEGREES_CELSIUS;
         }
+    }
+
+    public static String getCurrentLoc() {
+        return currentLoc;
+    }
+
+    public static void setCurrentLoc(String currentLoc) {
+        AppConfig.currentLoc = currentLoc;
     }
 }
