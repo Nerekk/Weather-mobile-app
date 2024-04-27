@@ -2,6 +2,7 @@ package com.example.weather_mobile_app;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -73,7 +74,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getAPIData() {
-        apiService.getCurrentWeather(AppConfig.getUnitsType(), "warsaw").enqueue(new Callback<CurrentWeatherData>() {
+        if (AppConfig.getCurrentLoc() == null) {
+//            Toast.makeText(this, "Localization is not set", Toast.LENGTH_SHORT).show();
+            writeToast("Localization is not set");
+            return;
+        }
+        apiService.getCurrentWeather(AppConfig.getUnitsType(), AppConfig.getCurrentLoc()).enqueue(new Callback<CurrentWeatherData>() {
             @Override
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
                 Log.i("Success", call.request().url() + " | hej " + String.valueOf(response.body().getName()));
@@ -106,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this, fragmentList);
         viewPager.setSaveFromParentEnabled(false);
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(pagerAdapter);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -132,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         });
+    }
+
+    public static void writeToast(String s) {
+        Toast toast= Toast.makeText(MainActivity.getMainActivity(), s, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
 }
