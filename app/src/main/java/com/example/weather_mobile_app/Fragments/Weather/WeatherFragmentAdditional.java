@@ -9,9 +9,12 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
+
+import java.util.Objects;
 
 public class WeatherFragmentAdditional extends Fragment implements WeatherFragmentService {
 
@@ -42,14 +45,29 @@ public class WeatherFragmentAdditional extends Fragment implements WeatherFragme
     }
 
     public void updateData(CurrentWeatherData data) {
-        Integer speed = ((Double)(data.getWind().getSpeed() * 3.6)).intValue();
-        String wind = speed.toString() + "km/h";
+        Integer speed;
+        String wind = null;
+        if (Objects.equals(AppConfig.getUnitsType(), AppConfig.IMPERIAL)) {
+            speed = data.getWind().getSpeed().intValue();
+        } else {
+            speed = ((Double)(data.getWind().getSpeed() * 3.6)).intValue();
+        }
+        switch (AppConfig.getUnitsType()) {
+            case AppConfig.DEFAULT:
+            case AppConfig.METRIC:
+                wind = speed.toString() + "km/h";
+                break;
+            case AppConfig.IMPERIAL:
+                wind = speed.toString() + "mph";
+                break;
+        }
         Integer windDegree = data.getWind().getDeg();
         String humidity = data.getMain().getHumidity().toString() + "%";
-        String pressure = data.getMain().getPressure().toString() + "mb";
+        String pressure = data.getMain().getPressure().toString() + "hPa";
+
         String visibility = String.valueOf((data.getVisibility().doubleValue()/1000)) + "km";
         tvWind.setText(wind);
-        ivWindArrow.setRotation(-windDegree);
+        ivWindArrow.setRotation(windDegree);
         tvHumidity.setText(humidity);
         tvPressure.setText(pressure);
         tvVisibility.setText(visibility);

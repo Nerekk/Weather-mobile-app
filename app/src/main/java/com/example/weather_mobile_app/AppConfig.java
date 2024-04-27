@@ -8,9 +8,11 @@ public class AppConfig {
 
     public static final String IMPERIAL = "imperial";
     public static final String METRIC = "metric";
+    public static final String DEFAULT = "default";
     public static final String DEGREES = "°";
     public static final String DEGREES_CELSIUS = "°C";
     public static final String DEGREES_FAHRENHEIT = "°F";
+    public static final String DEGREES_KELVIN = "°K";
 
     public static int getRefreshTime() {
         if (isRefreshSwitchEnabled) {
