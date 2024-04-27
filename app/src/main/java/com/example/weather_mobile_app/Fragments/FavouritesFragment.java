@@ -17,9 +17,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.MainActivity;
 import com.example.weather_mobile_app.R;
 
@@ -28,9 +30,9 @@ import java.util.ArrayList;
 public class FavouritesFragment extends Fragment {
     private static Dialog dialog;
     private static ArrayList<String> arrayList;
-    private TextView currentLoc;
+    private static TextView currentLoc;
     private static ListView locs;
-    static ArrayAdapter<String> adapter;
+    private static ArrayAdapter<String> adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,14 +50,26 @@ public class FavouritesFragment extends Fragment {
         return view;
     }
 
-    // listview zamiast przyciskow
-    // dwa przyciski, jeden dodaje, drugi usuwa
-
     private static void prepareComponents(View view) {
-        locs = (ListView) view.findViewById(R.id.lvLocs);
-        adapter = new ArrayAdapter<>(MainActivity.getMainActivity(), android.R.layout.simple_list_item_1,arrayList);
-        locs.setAdapter(adapter);
+        currentLoc = view.findViewById(R.id.tvCurrentLoc);
 
+        locs = (ListView) view.findViewById(R.id.lvLocs);
+        locs.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+
+        adapter = new ArrayAdapter<>(MainActivity.getMainActivity(), android.R.layout.simple_list_item_1, arrayList);
+        locs.setAdapter(adapter);
+        locs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                parent.getChildAt(savedItemPos).setBackgroundColor(Color.TRANSPARENT);
+//                view.setBackgroundColor(Color.GREEN);
+//                Log.i("ITEMEK", ((TextView)view).getText().toString());
+                String current = ((TextView)view).getText().toString();
+                AppConfig.setCurrentLoc(current);
+                currentLoc.setText(current);
+                MainActivity.getMainActivity().getAPIData();
+            }
+        });
 
         ImageView ivAdd = (ImageView) view.findViewById(R.id.ivAdd);
         dialogAdd(ivAdd);
@@ -71,16 +85,12 @@ public class FavouritesFragment extends Fragment {
             public void onClick(View view) {
                 dialog = new Dialog(MainActivity.getMainActivity());
 
-                // set custom dialog
                 dialog.setContentView(R.layout.dialog_add);
 
-                // set custom height and width
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-                // set transparent background
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                // show dialog
                 dialog.show();
 
 
@@ -90,12 +100,16 @@ public class FavouritesFragment extends Fragment {
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Log.i("BUTTON_ADD", "CLICK");
                         if (!editText.getText().toString().isEmpty()) {
-                            arrayList.add(editText.getText().toString());
+                            String newItem = editText.getText().toString();
+                            arrayList.add(newItem);
                             adapter.notifyDataSetChanged();
+
+                            MainActivity.writeToast(newItem + " added!");
+                            dialog.dismiss();
+                        } else {
+                            MainActivity.writeToast("Empty field!");
                         }
-                        dialog.dismiss();
                     }
                 });
 
@@ -116,16 +130,12 @@ public class FavouritesFragment extends Fragment {
             public void onClick(View view) {
                 dialog = new Dialog(MainActivity.getMainActivity());
 
-                // set custom dialog
                 dialog.setContentView(R.layout.dialog_delete);
 
-                // set custom height and width
                 dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
-                // set transparent background
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                // show dialog
                 dialog.show();
 
                 // Initialize and assign variable
@@ -140,14 +150,13 @@ public class FavouritesFragment extends Fragment {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        // when item selected from list
-                        // set selected item on textView
-//                        textview.setText(adapter.getItem(position));
-                        Log.i("DELETE", "DELETING: " + arrayList.get(position));
+                        String deletedItem = arrayList.get(position);
+                        Log.i("DELETE", "DELETING: " + deletedItem);
                         arrayList.remove(position);
                         adapter.notifyDataSetChanged();
-                        // Dismiss dialog
                         dialog.dismiss();
+
+                        MainActivity.writeToast(deletedItem + " deleted!");
                     }
                 });
 

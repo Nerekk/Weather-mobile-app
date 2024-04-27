@@ -89,8 +89,8 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
             ZonedDateTime nowInZone = ZonedDateTime.now(zoneOffset);
 
             if (zonedDateTime.getHour() == 15) {
-                Log.i("FORECAST", String.valueOf(zonedDateTime.getHour()) + ":" + zonedDateTime.getMinute());
-                Log.i("FORECAST SET INDEX", String.valueOf(index));
+//                Log.i("FORECAST", String.valueOf(zonedDateTime.getHour()) + ":" + zonedDateTime.getMinute());
+//                Log.i("FORECAST SET INDEX", String.valueOf(index));
                 setDayName(index, zonedDateTime, nowInZone);
                 setHumidity(index, record);
                 setDayTemperature(index, record);
