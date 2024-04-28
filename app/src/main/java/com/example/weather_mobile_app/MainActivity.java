@@ -66,10 +66,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        loadSharedPreferences();
+        Log.i("ONRESUME", "ONR");
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         saveSharedPreferences();
-        Log.i("ONPAUSE", "OND");
+        Log.i("ONPAUSE", "ONP");
     }
 
     private void saveSharedPreferences() {
