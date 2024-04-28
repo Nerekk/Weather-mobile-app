@@ -26,6 +26,7 @@ import com.example.weather_mobile_app.MainActivity;
 import com.example.weather_mobile_app.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FavouritesFragment extends Fragment {
     private static Dialog dialog;
@@ -52,12 +53,7 @@ public class FavouritesFragment extends Fragment {
 
     private static void prepareComponents(View view) {
         currentLoc = view.findViewById(R.id.tvCurrentLoc);
-        String curr = AppConfig.getCurrentLoc();
-        if (curr != null) {
-            currentLoc.setText(AppConfig.getCurrentLoc());
-        } else {
-            currentLoc.setText("None");
-        }
+        updateCurrentLocalization();
 
         locs = (ListView) view.findViewById(R.id.lvLocs);
         locs.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -83,6 +79,15 @@ public class FavouritesFragment extends Fragment {
         ImageView ivDel = (ImageView) view.findViewById(R.id.ivDelete);
         dialogDelete(ivDel);
 
+    }
+
+    private static void updateCurrentLocalization() {
+        String curr = AppConfig.getCurrentLoc();
+        if (curr != null) {
+            currentLoc.setText(AppConfig.getCurrentLoc());
+        } else {
+            currentLoc.setText("None");
+        }
     }
 
     private static void dialogAdd(ImageView ivAdd) {
@@ -158,6 +163,10 @@ public class FavouritesFragment extends Fragment {
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String deletedItem = arrayList.get(position);
                         Log.i("DELETE", "DELETING: " + deletedItem);
+                        if (Objects.equals(deletedItem, AppConfig.getCurrentLoc())) {
+                            AppConfig.setCurrentLoc(null);
+                            updateCurrentLocalization();
+                        }
                         arrayList.remove(position);
                         adapter.notifyDataSetChanged();
                         dialog.dismiss();
