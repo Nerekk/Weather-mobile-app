@@ -38,6 +38,9 @@ public class SettingsFragment extends Fragment {
     private static void prepareComponents(View view) {
         tvUnits = view.findViewById(R.id.tvUnits);
 
+        Switch threadSwitch = view.findViewById(R.id.apiSwitch);
+        threadSwitch.setChecked(AppConfig.isRefreshSwitchEnabled);
+
         ImageView iv = (ImageView) view.findViewById(R.id.ivRefresh);
         iv.setOnClickListener(new View.OnClickListener() {
             @Override

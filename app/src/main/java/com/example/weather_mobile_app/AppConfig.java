@@ -1,7 +1,7 @@
 package com.example.weather_mobile_app;
 
 public class AppConfig {
-    public static boolean isRefreshSwitchEnabled;
+    public static boolean isRefreshSwitchEnabled = false;
 
     public static final int UNIT_D = 0;
     public static final int UNIT_M = 1;
@@ -9,7 +9,11 @@ public class AppConfig {
 
     private static int unitsIndex = UNIT_D;
 
-    public static String currentLoc;
+    public static int currentPagePos = 0;
+
+    private static String currentLoc;
+
+    public static int threadTimer = 1;
 
     public static final String DEFAULT = "default";
     public static final String METRIC = "metric";

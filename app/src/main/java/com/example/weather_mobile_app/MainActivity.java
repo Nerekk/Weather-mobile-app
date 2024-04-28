@@ -1,5 +1,6 @@
 package com.example.weather_mobile_app;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -30,6 +31,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String SP_FILE = "MyPrefsFile";
+
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigationView;
     private FragmentStateAdapter pagerAdapter;
@@ -45,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
+        loadSharedPreferences();
+
         createFragmentList();
 
         // Instantiate a ViewPager2 and a PagerAdapter.
@@ -58,6 +63,40 @@ public class MainActivity extends AppCompatActivity {
 
 
 //        ((ScreenSlidePagerAdapter)pagerAdapter).updateApi(dataPack);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveSharedPreferences();
+        Log.i("ONPAUSE", "OND");
+    }
+
+    private void saveSharedPreferences() {
+        SharedPreferences.Editor editor = getSharedPreferences(SP_FILE, MODE_PRIVATE).edit();
+         // "key" to nazwa klucza, a myValue to wartość do zapisania
+
+        editor.putInt("keyInit", 1);
+
+        editor.putBoolean("keySwitch", AppConfig.isRefreshSwitchEnabled);
+        editor.putInt("keyUnits", AppConfig.getUnitsIndex());
+        editor.putInt("keyPage", AppConfig.currentPagePos);
+        editor.putString("keyLoc", AppConfig.getCurrentLoc());
+        editor.putInt("keyTimer", AppConfig.threadTimer);
+
+        editor.commit();
+    }
+
+    private void loadSharedPreferences() {
+        SharedPreferences prefs = getSharedPreferences(SP_FILE, MODE_PRIVATE);
+        int init = prefs.getInt("keyInit", 0);
+        if (init == 0) return;
+
+        AppConfig.isRefreshSwitchEnabled = prefs.getBoolean("keySwitch", false);
+        AppConfig.setUnitsIndex(prefs.getInt("keyUnits", 0));
+        AppConfig.currentPagePos = prefs.getInt("keyPage", 0);
+        AppConfig.setCurrentLoc(prefs.getString("keyLoc", null));
+        AppConfig.threadTimer = prefs.getInt("keyTimer", 5);
     }
 
     public static MainActivity getMainActivity() {
@@ -122,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
                 bottomNavigationView.getMenu().getItem(position).setChecked(true);
             }
         });
+        viewPager.setCurrentItem(AppConfig.currentPagePos);
     }
 
     private void createFragmentList() {
@@ -133,9 +173,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void setBottomNavViewListeners() {
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            if (item.getItemId() == R.id.navWeather) viewPager.setCurrentItem(0);
-            if (item.getItemId() == R.id.navFavourites) viewPager.setCurrentItem(1);
-            if (item.getItemId() == R.id.navSettings) viewPager.setCurrentItem(2);
+            if (item.getItemId() == R.id.navWeather) {
+                viewPager.setCurrentItem(0);
+                AppConfig.currentPagePos = 0;
+            }
+            if (item.getItemId() == R.id.navFavourites) {
+                viewPager.setCurrentItem(1);
+                AppConfig.currentPagePos = 1;
+            }
+            if (item.getItemId() == R.id.navSettings) {
+                viewPager.setCurrentItem(2);
+                AppConfig.currentPagePos = 2;
+            }
 
             return true;
         });

@@ -52,6 +52,12 @@ public class FavouritesFragment extends Fragment {
 
     private static void prepareComponents(View view) {
         currentLoc = view.findViewById(R.id.tvCurrentLoc);
+        String curr = AppConfig.getCurrentLoc();
+        if (curr != null) {
+            currentLoc.setText(AppConfig.getCurrentLoc());
+        } else {
+            currentLoc.setText("None");
+        }
 
         locs = (ListView) view.findViewById(R.id.lvLocs);
         locs.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
