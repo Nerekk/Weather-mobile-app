@@ -121,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void getAPIData() {
         if (AppConfig.getCurrentLoc() == null) {
-//            Toast.makeText(this, "Localization is not set", Toast.LENGTH_SHORT).show();
             writeToast("Localization is not set");
             return;
         }
@@ -138,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        apiService.getForecastWeather(AppConfig.getUnitsType(), "warsaw").enqueue(new Callback<ForecastWeatherData>() {
+        apiService.getForecastWeather(AppConfig.getUnitsType(), AppConfig.getCurrentLoc()).enqueue(new Callback<ForecastWeatherData>() {
             @Override
             public void onResponse(Call<ForecastWeatherData> call, Response<ForecastWeatherData> response) {
                 Log.i("Success2", call.request().url() + " | hej " + String.valueOf(response.body().getCity().getName()));
@@ -152,6 +151,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         Toast.makeText(this, "Api called", Toast.LENGTH_SHORT).show();
+    }
+
+    public void loadCurrentJSON() {
+
+    }
+
+    public void saveCurrentJSON() {
+
+    }
+
+    public void loadForecastJSON() {
+
+    }
+
+    public void saveForecastJSON() {
+
     }
 
     private void viewPagerHandle() {
