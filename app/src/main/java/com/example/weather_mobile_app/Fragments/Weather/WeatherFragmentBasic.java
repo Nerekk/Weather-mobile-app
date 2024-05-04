@@ -64,7 +64,7 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
         tvClock.setText(clock);
     }
 
-    private String convertTime(CurrentWeatherData data) {
+    public static String convertTime(CurrentWeatherData data) {
         int dt = data.getDt();
         int timezone = data.getTimezone();
 

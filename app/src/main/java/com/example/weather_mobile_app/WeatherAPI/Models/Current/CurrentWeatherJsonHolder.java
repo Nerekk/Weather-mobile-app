@@ -1,20 +1,20 @@
 package com.example.weather_mobile_app.WeatherAPI.Models.Current;
 
-public class CurrentWeatherJSON {
-    private String localization;
+public class CurrentWeatherJsonHolder {
+    private String name;
     private String coords;
     private String date;
     private String icon;
     private String desc;
-    private String temp;
-    private int windDegree;
-    private String wind;
+    private Integer temp;
+    private Integer windDegree;
+    private Double wind;
     private String humidity;
-    private String visibility;
+    private Integer visibility;
     private String pressure;
 
-    public CurrentWeatherJSON(String localization, String coords, String date, String icon, String desc, String temp, int windDegree, String wind, String humidity, String visibility, String pressure) {
-        this.localization = localization;
+    public CurrentWeatherJsonHolder(String name, String coords, String date, String icon, String desc, Integer temp, Integer windDegree, Double wind, String humidity, Integer visibility, String pressure) {
+        this.name = name;
         this.coords = coords;
         this.date = date;
         this.icon = icon;
@@ -27,12 +27,12 @@ public class CurrentWeatherJSON {
         this.pressure = pressure;
     }
 
-    public String getLocalization() {
-        return localization;
+    public String getName() {
+        return name;
     }
 
-    public void setLocalization(String localization) {
-        this.localization = localization;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCoords() {
@@ -67,27 +67,27 @@ public class CurrentWeatherJSON {
         this.desc = desc;
     }
 
-    public String getTemp() {
+    public Integer getTemp() {
         return temp;
     }
 
-    public void setTemp(String temp) {
+    public void setTemp(Integer temp) {
         this.temp = temp;
     }
 
-    public int getWindDegree() {
+    public Integer getWindDegree() {
         return windDegree;
     }
 
-    public void setWindDegree(int windDegree) {
+    public void setWindDegree(Integer windDegree) {
         this.windDegree = windDegree;
     }
 
-    public String getWind() {
+    public Double getWind() {
         return wind;
     }
 
-    public void setWind(String wind) {
+    public void setWind(Double wind) {
         this.wind = wind;
     }
 
@@ -99,11 +99,11 @@ public class CurrentWeatherJSON {
         this.humidity = humidity;
     }
 
-    public String getVisibility() {
+    public Integer getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(String visibility) {
+    public void setVisibility(Integer visibility) {
         this.visibility = visibility;
     }
 
