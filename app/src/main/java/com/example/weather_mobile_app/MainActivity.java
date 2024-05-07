@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -17,6 +18,7 @@ import com.example.weather_mobile_app.Fragments.FavouritesFragment;
 import com.example.weather_mobile_app.Fragments.SettingsFragment;
 import com.example.weather_mobile_app.Fragments.Weather.WeatherFragment;
 import com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentBasic;
+import com.example.weather_mobile_app.Interfaces.CityNameListener;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 import com.example.weather_mobile_app.Interfaces.RequestWeatherService;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherJsonHolder;
@@ -29,14 +31,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,8 +114,9 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("keySwitch", AppConfig.isRefreshSwitchEnabled);
         editor.putInt("keyUnits", AppConfig.getUnitsIndex());
         editor.putInt("keyPage", AppConfig.currentPagePos);
-        editor.putString("keyLoc", AppConfig.getCurrentLoc());
+        editor.putString("keyLoc", FavouritesFragment.getSetLoc());
         editor.putInt("keyTimer", AppConfig.threadTimer);
+        editor.putStringSet("keyFavs", FavouritesFragment.arrayListToSet());
 
         editor.commit();
     }
@@ -125,6 +133,20 @@ public class MainActivity extends AppCompatActivity {
         AppConfig.threadTimer = prefs.getInt("keyTimer", 5);
     }
 
+    public ArrayList<String> recoverFavList() {
+        SharedPreferences prefs = getSharedPreferences(SP_FILE, MODE_PRIVATE);
+        int init = prefs.getInt("keyInit", 0);
+        if (init == 0) return new ArrayList<>();
+        Set<String> sset = prefs.getStringSet("keyFavs", null);
+
+        if (sset != null) {
+            return new ArrayList<>(sset);
+        } else {
+            return new ArrayList<>();
+        }
+
+    }
+
     public static MainActivity getMainActivity() {
         return mainActivity;
     }
@@ -136,6 +158,22 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         apiService = retrofit.create(RequestWeatherService.class);
+    }
+
+    public void getCityNameFromApi(String city, CityNameListener listener) {
+        Log.i("CITYAPI", city);
+        apiService.getCurrentWeather(AppConfig.getUnitsType(), city).enqueue(new Callback<CurrentWeatherData>() {
+            @Override
+            public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
+                String cityName = response.body().getName();
+                listener.onCityNameReceived(cityName);
+            }
+
+            @Override
+            public void onFailure(Call<CurrentWeatherData> call, Throwable throwable) {
+                listener.onCityNameReceived("null");
+            }
+        });
     }
 
     public void getAPIData() {
@@ -154,7 +192,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CurrentWeatherData> call, Throwable throwable) {
-                Log.i("Error current", throwable.getMessage());
+                Log.i("Error current", throwable.getCause().getMessage() + " | " + throwable.getMessage());
+                CurrentWeatherJsonHolder holder = loadCurrentJSON();
+                Log.i("HOLDER", holder.toString());
+                ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(holder);
             }
         });
 
@@ -191,11 +232,14 @@ public class MainActivity extends AppCompatActivity {
     public void saveOrUpdateJSON(CurrentWeatherJsonHolder data) {
         JSONArray jsonArray;
         try {
-            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_CURRENT)));
-            jsonArray = new JSONArray(jsonContent);
+            String response = getJsonArrayFromFile();
 
+//            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_CURRENT)));
+            jsonArray = new JSONArray(response);
+            Log.i("FILE_LOAD", "FOUND");
         } catch (IOException | JSONException e) {
             jsonArray = new JSONArray();
+            Log.i("FILE_LOAD", "NOT FOUND");
         }
 
         JSONObject localization = createCurrentJsonObject(data);
@@ -218,6 +262,22 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @NonNull
+    private String getJsonArrayFromFile() throws IOException {
+        File file = new File(getApplicationContext().getFilesDir(), JSON_CURRENT);
+        FileReader fileReader = new FileReader(file);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        StringBuilder stringBuilder = new StringBuilder();
+        String line = bufferedReader.readLine();
+        while (line != null){
+            stringBuilder.append(line).append("\n");
+            line = bufferedReader.readLine();
+        }
+        bufferedReader.close();
+        String responce = stringBuilder.toString();
+        return responce;
     }
 
     public void saveOrUpdateJSON(ForecastWeatherJsonHolder data) {
@@ -305,6 +365,7 @@ public class MainActivity extends AppCompatActivity {
                     visibility,
                     pressure
             );
+            Log.i("HOLDER", holder.toString());
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -316,8 +377,26 @@ public class MainActivity extends AppCompatActivity {
 //
 //    }
 //
-//    public CurrentWeatherJsonHolder loadCurrentJSON() {
-//    }
+    public CurrentWeatherJsonHolder loadCurrentJSON() {
+        try {
+//            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_FORECAST)));
+            String response = getJsonArrayFromFile();
+            JSONArray jsonArray = new JSONArray(response);
+            Log.i("JSON_FINDING", FavouritesFragment.getSetLoc());
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject locationJson = jsonArray.getJSONObject(i);
+                String cityName = locationJson.getString(NAME);
+                Log.i("JSON_LOAD", cityName);
+                if (cityName.equals(AppConfig.getCurrentLoc())) {
+                    return jsonToHolderTransfer(locationJson);
+                }
+            }
+        } catch (IOException | JSONException e) {
+            Log.i("EXCEPTION", "Here");
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     private JSONObject createCurrentJsonObject(CurrentWeatherJsonHolder data) {
@@ -335,6 +414,7 @@ public class MainActivity extends AppCompatActivity {
             object.put(VISIBILITY, data.getVisibility());
             object.put(PRESSURE, data.getPressure());
         } catch (JSONException e) {
+            Log.i("EXCEPTION", "Here2");
             e.printStackTrace();
         }
         return object;

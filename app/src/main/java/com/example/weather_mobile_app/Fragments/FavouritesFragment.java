@@ -1,6 +1,7 @@
 package com.example.weather_mobile_app.Fragments;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,11 +23,14 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.weather_mobile_app.AppConfig;
+import com.example.weather_mobile_app.Interfaces.CityNameListener;
 import com.example.weather_mobile_app.MainActivity;
 import com.example.weather_mobile_app.R;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class FavouritesFragment extends Fragment {
     private static Dialog dialog;
@@ -38,15 +42,7 @@ public class FavouritesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favourites_main, container, false);
-        arrayList=new ArrayList<>();
-        arrayList.add("Warszawa");
-        arrayList.add("Poznan");
-        arrayList.add("Krakow");
-        arrayList.add("Washington");
-        arrayList.add("Prague");
-        arrayList.add("Londyn");
-        arrayList.add("Berlin");
-        arrayList.add("Amriswil");
+        arrayList = MainActivity.getMainActivity().recoverFavList();
         prepareComponents(view);
         return view;
     }
@@ -113,11 +109,21 @@ public class FavouritesFragment extends Fragment {
                     public void onClick(View view) {
                         if (!editText.getText().toString().isEmpty()) {
                             String newItem = editText.getText().toString();
-                            arrayList.add(newItem);
-                            adapter.notifyDataSetChanged();
 
-                            MainActivity.writeToast(newItem + " added!");
-                            dialog.dismiss();
+                            MainActivity.getMainActivity().getCityNameFromApi(newItem, new CityNameListener() {
+                                @Override
+                                public void onCityNameReceived(String cityName) {
+                                    if (cityName.equals("null")) {
+                                        MainActivity.writeToast("Wrong city!");
+                                        return;
+                                    }
+                                    arrayList.add(cityName);
+                                    adapter.notifyDataSetChanged();
+
+                                    MainActivity.writeToast(cityName + " added!");
+                                    dialog.dismiss();
+                                }
+                            });
                         } else {
                             MainActivity.writeToast("Empty field!");
                         }
@@ -184,5 +190,13 @@ public class FavouritesFragment extends Fragment {
                 });
             }
         });
+    }
+    public static String getSetLoc() {
+        return currentLoc.getText().toString();
+    }
+
+    public static Set<String> arrayListToSet() {
+        // Tworzymy nowy HashSet i dodajemy wszystkie elementy z ArrayList do niego
+        return new HashSet<>(arrayList);
     }
 }
