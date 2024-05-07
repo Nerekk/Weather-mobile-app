@@ -10,9 +10,11 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.weather_mobile_app.AppConfig;
+import com.example.weather_mobile_app.Fragments.FavouritesFragment;
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
+import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherJsonHolder;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
@@ -55,8 +57,24 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
         String coords2 = data.getCoord().getLon().intValue() + AppConfig.DEGREES;
         String coords = "Lat:" + coords1 + " Lon:" + coords2;
         String desc = String.valueOf(data.getWeather().get(0).getMain());
-        String city = String.valueOf(data.getName());
+        String city = FavouritesFragment.getSetLoc();
+//        String city = String.valueOf(data.getName());
+//        AppConfig.setCurrentLoc(city);
+
         String clock = convertTime(data);
+        tvTemp.setText(temp);
+        tvCoords.setText(coords);
+        tvDesc.setText(desc);
+        tvCity.setText(city);
+        tvClock.setText(clock);
+    }
+
+    public void updateData(CurrentWeatherJsonHolder data) {
+        String temp = data.getTemp() + AppConfig.getDegreesType();
+        String coords = data.getCoords();
+        String desc = data.getDesc();
+        String city = data.getName();
+        String clock = data.getDate();
         tvTemp.setText(temp);
         tvCoords.setText(coords);
         tvDesc.setText(desc);
