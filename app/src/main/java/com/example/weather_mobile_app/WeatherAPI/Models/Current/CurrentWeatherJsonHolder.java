@@ -135,4 +135,21 @@ public class CurrentWeatherJsonHolder {
     public void setPressure(String pressure) {
         this.pressure = pressure;
     }
+
+    @Override
+    public String toString() {
+        return "CurrentWeatherJsonHolder{" +
+                "name='" + name + '\'' +
+                ", coords='" + coords + '\'' +
+                ", date='" + date + '\'' +
+                ", icon='" + icon + '\'' +
+                ", desc='" + desc + '\'' +
+                ", temp=" + temp +
+                ", windDegree=" + windDegree +
+                ", wind=" + wind +
+                ", humidity='" + humidity + '\'' +
+                ", visibility=" + visibility +
+                ", pressure='" + pressure + '\'' +
+                '}';
+    }
 }
