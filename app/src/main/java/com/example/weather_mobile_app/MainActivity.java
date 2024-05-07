@@ -1,5 +1,7 @@
 package com.example.weather_mobile_app;
 
+import static com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherJsonHolder.*;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -275,6 +277,41 @@ public class MainActivity extends AppCompatActivity {
         return holder;
     }
 
+    public CurrentWeatherJsonHolder jsonToHolderTransfer(JSONObject data) {
+        CurrentWeatherJsonHolder holder;
+        try {
+            String name = data.getString(NAME);
+            String coords = data.getString(COORDS);
+            String date = data.getString(DATE);
+            String icon = data.getString(ICON);
+            String desc = data.getString(DESC);
+            Integer temp = data.getInt(TEMP);
+            Integer degree = data.getInt(WIND_DEGREE);
+            Double wind = data.getDouble(WIND);
+            String humidity = data.getString(HUMIDITY);
+            Integer visibility = data.getInt(VISIBILITY);
+            String pressure = data.getString(PRESSURE);
+
+            holder = new CurrentWeatherJsonHolder(
+                    name,
+                    coords,
+                    date,
+                    icon,
+                    desc,
+                    temp,
+                    degree,
+                    wind,
+                    humidity,
+                    visibility,
+                    pressure
+            );
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        return holder;
+    }
+
 //    public ForecastWeatherJsonHolder loadForecastJSON() {
 //
 //    }
@@ -286,17 +323,17 @@ public class MainActivity extends AppCompatActivity {
     private JSONObject createCurrentJsonObject(CurrentWeatherJsonHolder data) {
         JSONObject object = new JSONObject();
         try {
-            object.put("name", data.getName());
-            object.put("coords", data.getCoords());
-            object.put("date", data.getDate());
-            object.put("icon", data.getIcon());
-            object.put("desc", data.getDesc());
-            object.put("temp", data.getTemp());
-            object.put("windDegree", data.getWindDegree());
-            object.put("wind", data.getWind());
-            object.put("humidity", data.getHumidity());
-            object.put("visibility", data.getVisibility());
-            object.put("pressure", data.getPressure());
+            object.put(NAME, data.getName());
+            object.put(COORDS, data.getCoords());
+            object.put(DATE, data.getDate());
+            object.put(ICON, data.getIcon());
+            object.put(DESC, data.getDesc());
+            object.put(TEMP, data.getTemp());
+            object.put(WIND_DEGREE, data.getWindDegree());
+            object.put(WIND, data.getWind());
+            object.put(HUMIDITY, data.getHumidity());
+            object.put(VISIBILITY, data.getVisibility());
+            object.put(PRESSURE, data.getPressure());
         } catch (JSONException e) {
             e.printStackTrace();
         }
