@@ -58,8 +58,8 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         Log.i("FRAGMENT", String.valueOf(weatherBasic==null));
         weatherBasic.updateData(data);
 
-//        WeatherFragmentAdditional weatherAdditional = (WeatherFragmentAdditional) weather.getChildFragmentManager().findFragmentByTag("additionalFragment");
-//        weatherAdditional.updateData(data);
+        WeatherFragmentAdditional weatherAdditional = (WeatherFragmentAdditional) weather.getChildFragmentManager().findFragmentByTag("additionalFragment");
+        weatherAdditional.updateData(data);
     }
 
     public void updateApiForecast(ForecastWeatherData data) {
