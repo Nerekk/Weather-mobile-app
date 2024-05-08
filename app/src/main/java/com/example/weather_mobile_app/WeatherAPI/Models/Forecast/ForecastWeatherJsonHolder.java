@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ForecastWeatherJsonHolder {
+
+    public final static String F_NAME = "name";
     private String name;
+
+    public final static String F_RECORDS = "records";
     private List<ForecastRecordJsonHolder> records;
     private int i;
 

@@ -1,6 +1,8 @@
 package com.example.weather_mobile_app;
 
 import static com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherJsonHolder.*;
+import static com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastRecordJsonHolder.*;
+import static com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherJsonHolder.*;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -37,12 +39,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -232,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
     public void saveOrUpdateJSON(CurrentWeatherJsonHolder data) {
         JSONArray jsonArray;
         try {
-            String response = getJsonArrayFromFile();
+            String response = getJsonArrayFromFile(JSON_CURRENT);
 
 //            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_CURRENT)));
             jsonArray = new JSONArray(response);
@@ -242,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("FILE_LOAD", "NOT FOUND");
         }
 
-        JSONObject localization = createCurrentJsonObject(data);
+        JSONObject localization = createJsonObject(data);
         int existingIndex = findExistingLocationIndex(jsonArray, AppConfig.getCurrentLoc());
 
         if (existingIndex != -1) {
@@ -265,8 +263,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @NonNull
-    private String getJsonArrayFromFile() throws IOException {
-        File file = new File(getApplicationContext().getFilesDir(), JSON_CURRENT);
+    private String getJsonArrayFromFile(String filename) throws IOException {
+        File file = new File(getApplicationContext().getFilesDir(), filename);
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         StringBuilder stringBuilder = new StringBuilder();
@@ -283,14 +281,14 @@ public class MainActivity extends AppCompatActivity {
     public void saveOrUpdateJSON(ForecastWeatherJsonHolder data) {
         JSONArray jsonArray;
         try {
-            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_FORECAST)));
-            jsonArray = new JSONArray(jsonContent);
+            String response = getJsonArrayFromFile(JSON_FORECAST);
+            jsonArray = new JSONArray(response);
 
         } catch (IOException | JSONException e) {
             jsonArray = new JSONArray();
         }
 
-        JSONObject localization = createForecastJsonObject(data);
+        JSONObject localization = createJsonObject(data);
         int existingIndex = findExistingLocationIndex(jsonArray, AppConfig.getCurrentLoc());
 
         if (existingIndex != -1) {
@@ -340,17 +338,17 @@ public class MainActivity extends AppCompatActivity {
     public CurrentWeatherJsonHolder jsonToHolderTransfer(JSONObject data) {
         CurrentWeatherJsonHolder holder;
         try {
-            String name = data.getString(NAME);
-            String coords = data.getString(COORDS);
-            String date = data.getString(DATE);
-            String icon = data.getString(ICON);
-            String desc = data.getString(DESC);
-            Integer temp = data.getInt(TEMP);
-            Integer degree = data.getInt(WIND_DEGREE);
-            Double wind = data.getDouble(WIND);
-            String humidity = data.getString(HUMIDITY);
-            Integer visibility = data.getInt(VISIBILITY);
-            String pressure = data.getString(PRESSURE);
+            String name = data.getString(C_NAME);
+            String coords = data.getString(C_COORDS);
+            String date = data.getString(C_DATE);
+            String icon = data.getString(C_ICON);
+            String desc = data.getString(C_DESC);
+            Integer temp = data.getInt(C_TEMP);
+            Integer degree = data.getInt(C_WIND_DEGREE);
+            Double wind = data.getDouble(C_WIND);
+            String humidity = data.getString(C_HUMIDITY);
+            Integer visibility = data.getInt(C_VISIBILITY);
+            String pressure = data.getString(C_PRESSURE);
 
             holder = new CurrentWeatherJsonHolder(
                     name,
@@ -380,12 +378,12 @@ public class MainActivity extends AppCompatActivity {
     public CurrentWeatherJsonHolder loadCurrentJSON() {
         try {
 //            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_FORECAST)));
-            String response = getJsonArrayFromFile();
+            String response = getJsonArrayFromFile(JSON_CURRENT);
             JSONArray jsonArray = new JSONArray(response);
             Log.i("JSON_FINDING", FavouritesFragment.getSetLoc());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject locationJson = jsonArray.getJSONObject(i);
-                String cityName = locationJson.getString(NAME);
+                String cityName = locationJson.getString(C_NAME);
                 Log.i("JSON_LOAD", cityName);
                 if (cityName.equals(AppConfig.getCurrentLoc())) {
                     return jsonToHolderTransfer(locationJson);
@@ -399,20 +397,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private JSONObject createCurrentJsonObject(CurrentWeatherJsonHolder data) {
+    private JSONObject createJsonObject(CurrentWeatherJsonHolder data) {
         JSONObject object = new JSONObject();
         try {
-            object.put(NAME, data.getName());
-            object.put(COORDS, data.getCoords());
-            object.put(DATE, data.getDate());
-            object.put(ICON, data.getIcon());
-            object.put(DESC, data.getDesc());
-            object.put(TEMP, data.getTemp());
-            object.put(WIND_DEGREE, data.getWindDegree());
-            object.put(WIND, data.getWind());
-            object.put(HUMIDITY, data.getHumidity());
-            object.put(VISIBILITY, data.getVisibility());
-            object.put(PRESSURE, data.getPressure());
+            object.put(C_NAME, data.getName());
+            object.put(C_COORDS, data.getCoords());
+            object.put(C_DATE, data.getDate());
+            object.put(C_ICON, data.getIcon());
+            object.put(C_DESC, data.getDesc());
+            object.put(C_TEMP, data.getTemp());
+            object.put(C_WIND_DEGREE, data.getWindDegree());
+            object.put(C_WIND, data.getWind());
+            object.put(C_HUMIDITY, data.getHumidity());
+            object.put(C_VISIBILITY, data.getVisibility());
+            object.put(C_PRESSURE, data.getPressure());
         } catch (JSONException e) {
             Log.i("EXCEPTION", "Here2");
             e.printStackTrace();
@@ -420,21 +418,21 @@ public class MainActivity extends AppCompatActivity {
         return object;
     }
 
-    private JSONObject createForecastJsonObject(ForecastWeatherJsonHolder data) {
+    private JSONObject createJsonObject(ForecastWeatherJsonHolder data) {
         JSONObject object = new JSONObject();
         try {
-            object.put("name", data.getName());
+            object.put(F_NAME, data.getName());
 
             JSONArray forecastsJson = new JSONArray();
             for (ForecastRecordJsonHolder record : data.getRecords()) {
                 JSONObject forecastJson = new JSONObject();
-                forecastJson.put("weekDay", record.getWeekDay());
-                forecastJson.put("humidity", record.getHumidity());
-                forecastJson.put("icon", record.getIcon());
-                forecastJson.put("temp", record.getTemp());
+                forecastJson.put(F_WEEK_DAY, record.getWeekDay());
+                forecastJson.put(F_HUMIDITY, record.getHumidity());
+                forecastJson.put(F_ICON, record.getIcon());
+                forecastJson.put(F_TEMP, record.getTemp());
                 forecastsJson.put(forecastJson);
             }
-            object.put("forecast", forecastsJson);
+            object.put(F_RECORDS, forecastsJson);
         } catch (JSONException e) {
             e.printStackTrace();
         }

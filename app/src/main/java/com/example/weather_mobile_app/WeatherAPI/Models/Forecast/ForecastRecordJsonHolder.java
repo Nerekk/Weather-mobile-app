@@ -1,9 +1,17 @@
 package com.example.weather_mobile_app.WeatherAPI.Models.Forecast;
 
 public class ForecastRecordJsonHolder {
+
+    public final static String F_WEEK_DAY = "weekDay";
     private String weekDay;
+
+    public final static String F_HUMIDITY = "humidity";
     private String humidity;
+
+    public final static String F_ICON = "icon";
     private String icon;
+
+    public final static String F_TEMP = "temp";
     private String temp;
 
     public ForecastRecordJsonHolder(String weekDay, String humidity, String icon, String temp) {
