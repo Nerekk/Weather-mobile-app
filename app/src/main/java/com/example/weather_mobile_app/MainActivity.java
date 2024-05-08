@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String SP_FILE = "MyPrefsFile";
     private static final String JSON_CURRENT = "SavedCurrentLocations.json";
     private static final String JSON_FORECAST = "SavedForecastLocations.json";
-    private static final int TYPE_CURR = 0;
-    private static final int TYPE_FORE = 1;
 
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigationView;

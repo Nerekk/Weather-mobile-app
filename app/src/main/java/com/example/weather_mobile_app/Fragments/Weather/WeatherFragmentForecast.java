@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
+import com.example.weather_mobile_app.Utils.WeatherIcons;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastRecord;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastRecordJsonHolder;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherData;
@@ -90,6 +91,10 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
             tvDays.get(index).setText(record.getWeekDay());
 
             // ustaw icon
+            String icon = record.getIcon();
+            ivDays.get(index).setTag(icon);
+            ivDays.get(index).setImageResource(WeatherIcons.getIconResource(icon));
+
             index++;
         }
     }
@@ -106,6 +111,11 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
                 setDayName(index, zonedDateTime, nowInZone);
                 setHumidity(index, record);
                 setDayTemperature(index, record);
+
+                String icon = record.getWeather().get(0).getIcon();
+                ivDays.get(index).setTag(icon);
+                ivDays.get(index).setImageResource(WeatherIcons.getIconResource(icon));
+
                 index++;
             }
         }

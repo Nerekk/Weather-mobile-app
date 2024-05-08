@@ -13,6 +13,7 @@ import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.Fragments.FavouritesFragment;
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
+import com.example.weather_mobile_app.Utils.WeatherIcons;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherJsonHolder;
 
@@ -60,6 +61,7 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
         String coords = "Lat:" + coords1 + " Lon:" + coords2;
         String desc = String.valueOf(data.getWeather().get(0).getMain());
         String city = FavouritesFragment.getSetLoc();
+        String icon = data.getWeather().get(0).getIcon();
 //        String city = String.valueOf(data.getName());
 //        AppConfig.setCurrentLoc(city);
 
@@ -69,7 +71,8 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
         tvDesc.setText(desc);
         tvCity.setText(city);
         tvClock.setText(clock);
-//        ivWeather.setTag("test");
+        ivWeather.setTag(icon);
+        ivWeather.setImageResource(WeatherIcons.getIconResource(icon));
     }
 
     public void updateData(CurrentWeatherJsonHolder data) {
@@ -78,6 +81,10 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
         tvDesc.setText(data.getDesc());
         tvCity.setText(data.getName());
         tvClock.setText(data.getDate());
+
+        String icon = data.getIcon();
+        ivWeather.setTag(icon);
+        ivWeather.setImageResource(WeatherIcons.getIconResource(icon));
     }
 
     public static String convertTime(CurrentWeatherData data) {
