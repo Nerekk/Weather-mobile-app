@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightDay"
-                android:text="Dzisiaj"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
@@ -47,10 +47,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightHum"
-                android:text="64%"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
+                android:tag="none"
                 android:id="@+id/ivDay1"
                 android:adjustViewBounds="true"
                 android:layout_width="0dp"
@@ -65,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightTempDayNight"
-                android:text="8°"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize2"
                 android:textAlignment="center"/>
 
@@ -83,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightDay"
-                android:text="Dzisiaj"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
@@ -101,10 +102,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightHum"
-                android:text="64%"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
+                android:tag="none"
                 android:id="@+id/ivDay2"
                 android:adjustViewBounds="true"
                 android:layout_width="0dp"
@@ -119,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightTempDayNight"
-                android:text="8°"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize2"
                 android:textAlignment="center"/>
 
@@ -137,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightDay"
-                android:text="Dzisiaj"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
@@ -155,10 +157,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightHum"
-                android:text="64%"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
+                android:tag="none"
                 android:id="@+id/ivDay3"
                 android:adjustViewBounds="true"
                 android:layout_width="0dp"
@@ -173,7 +176,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightTempDayNight"
-                android:text="8°"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize2"
                 android:textAlignment="center" />
 
@@ -191,7 +194,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightDay"
-                android:text="Dzisiaj"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
@@ -209,10 +212,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightHum"
-                android:text="64%"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
+                android:tag="none"
                 android:id="@+id/ivDay4"
                 android:adjustViewBounds="true"
                 android:layout_width="0dp"
@@ -227,7 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightTempDayNight"
-                android:text="8°"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize2"
                 android:textAlignment="center" />
 
@@ -245,7 +249,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightDay"
-                android:text="Dzisiaj"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize" />
 
             <ImageView
@@ -263,10 +267,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightHum"
-                android:text="64%"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize2" />
 
             <ImageView
+                android:tag="none"
                 android:id="@+id/ivDay5"
                 android:adjustViewBounds="true"
                 android:layout_width="0dp"
@@ -281,7 +286,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="@integer/f3WeightTempDayNight"
-                android:text="8°"
+                android:text="-"
                 android:textSize="@dimen/f3ItemSize2"
                 android:textAlignment="center" />
 
