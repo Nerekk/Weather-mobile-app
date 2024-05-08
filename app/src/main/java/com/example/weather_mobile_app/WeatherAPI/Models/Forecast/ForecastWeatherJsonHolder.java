@@ -40,4 +40,12 @@ public class ForecastWeatherJsonHolder {
     public void setRecords(List<ForecastRecordJsonHolder> records) {
         this.records = records;
     }
+
+    @Override
+    public String toString() {
+        return "ForecastWeatherJsonHolder{" +
+                "name='" + name + '\'' +
+                ", records=" + records +
+                '}';
+    }
 }

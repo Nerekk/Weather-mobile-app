@@ -52,4 +52,14 @@ public class ForecastRecordJsonHolder {
     public void setTemp(String temp) {
         this.temp = temp;
     }
+
+    @Override
+    public String toString() {
+        return "ForecastRecordJsonHolder{" +
+                "weekDay='" + weekDay + '\'' +
+                ", humidity='" + humidity + '\'' +
+                ", icon='" + icon + '\'' +
+                ", temp='" + temp + '\'' +
+                '}';
+    }
 }
