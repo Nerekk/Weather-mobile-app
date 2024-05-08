@@ -69,7 +69,9 @@ public class WeatherFragmentAdditional extends Fragment implements WeatherFragme
         String humidity = data.getMain().getHumidity().toString() + "%";
         String pressure = data.getMain().getPressure().toString() + "hPa";
 
-        String visibility = String.valueOf((data.getVisibility().doubleValue()/1000)) + "km";
+        double vis = data.getVisibility().doubleValue()/1000;
+
+        String visibility = String.valueOf(Math.round(vis * 10.0) / 10.0) + "km";
         tvWind.setText(wind);
         ivWindArrow.setRotation(windDegree);
         tvHumidity.setText(humidity);
