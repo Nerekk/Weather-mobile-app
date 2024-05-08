@@ -105,7 +105,7 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
             ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneId.ofOffset("UTC", zoneOffset));
             ZonedDateTime nowInZone = ZonedDateTime.now(zoneOffset);
 
-            if (zonedDateTime.getHour() == 15) {
+            if (zonedDateTime.getHour() == 12) {
 //                Log.i("FORECAST", String.valueOf(zonedDateTime.getHour()) + ":" + zonedDateTime.getMinute());
 //                Log.i("FORECAST SET INDEX", String.valueOf(index));
                 setDayName(index, zonedDateTime, nowInZone);
