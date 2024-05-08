@@ -17,24 +17,24 @@ public class CurrentWeatherJsonHolder {
     private String desc;
 
     public static final String C_TEMP = "temp";
-    private Integer temp;
+    private String temp;
 
     public static final String C_WIND_DEGREE = "windDegree";
     private Integer windDegree;
 
     public static final String C_WIND = "wind";
-    private Double wind;
+    private String wind;
 
     public static final String C_HUMIDITY = "humidity";
     private String humidity;
 
     public static final String C_VISIBILITY = "visibility";
-    private Integer visibility;
+    private String visibility;
 
     public static final String C_PRESSURE = "pressure";
     private String pressure;
 
-    public CurrentWeatherJsonHolder(String name, String coords, String date, String icon, String desc, Integer temp, Integer windDegree, Double wind, String humidity, Integer visibility, String pressure) {
+    public CurrentWeatherJsonHolder(String name, String coords, String date, String icon, String desc, String temp, Integer windDegree, String wind, String humidity, String visibility, String pressure) {
         this.name = name;
         this.coords = coords;
         this.date = date;
@@ -47,6 +47,21 @@ public class CurrentWeatherJsonHolder {
         this.visibility = visibility;
         this.pressure = pressure;
     }
+
+    public CurrentWeatherJsonHolder() {
+        this.name = "-";
+        this.coords = "-";
+        this.date = "-";
+        this.icon = "-";
+        this.desc = "-";
+        this.temp = "No data";
+        this.windDegree = 0;
+        this.wind = "-";
+        this.humidity = "-";
+        this.visibility = "-";
+        this.pressure = "-";
+    }
+
 
     public String getName() {
         return name;
@@ -88,11 +103,11 @@ public class CurrentWeatherJsonHolder {
         this.desc = desc;
     }
 
-    public Integer getTemp() {
+    public String getTemp() {
         return temp;
     }
 
-    public void setTemp(Integer temp) {
+    public void setTemp(String temp) {
         this.temp = temp;
     }
 
@@ -104,11 +119,11 @@ public class CurrentWeatherJsonHolder {
         this.windDegree = windDegree;
     }
 
-    public Double getWind() {
+    public String getWind() {
         return wind;
     }
 
-    public void setWind(Double wind) {
+    public void setWind(String wind) {
         this.wind = wind;
     }
 
@@ -120,11 +135,11 @@ public class CurrentWeatherJsonHolder {
         this.humidity = humidity;
     }
 
-    public Integer getVisibility() {
+    public String getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(Integer visibility) {
+    public void setVisibility(String visibility) {
         this.visibility = visibility;
     }
 

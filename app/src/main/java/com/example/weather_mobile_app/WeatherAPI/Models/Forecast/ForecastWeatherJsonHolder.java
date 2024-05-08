@@ -18,6 +18,15 @@ public class ForecastWeatherJsonHolder {
         this.i = 0;
     }
 
+    public ForecastWeatherJsonHolder() {
+        this.name = "-";
+        this.records = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            addRecord(new ForecastRecordJsonHolder("-", "-", "-", "-"));
+        }
+        this.i = 0;
+    }
+
     public void addRecord(ForecastRecordJsonHolder record) {
         if (i < 5) {
             records.add(record);

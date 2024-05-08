@@ -22,6 +22,8 @@ public class WeatherFragmentAdditional extends Fragment implements WeatherFragme
     TextView tvWind, tvHumidity, tvVisibility, tvPressure;
     ImageView ivWindArrow;
 
+    Integer degree = 0;
+
     public WeatherFragmentAdditional() {}
 
     @Override
@@ -46,6 +48,7 @@ public class WeatherFragmentAdditional extends Fragment implements WeatherFragme
     }
 
     public void updateData(CurrentWeatherData data) {
+        degree = data.getWind().getDeg();
         Integer speed;
         String wind = null;
         if (Objects.equals(AppConfig.getUnitsType(), AppConfig.IMPERIAL)) {
@@ -75,33 +78,34 @@ public class WeatherFragmentAdditional extends Fragment implements WeatherFragme
     }
 
     public void updateData(CurrentWeatherJsonHolder data) {
-        Integer speed;
-        String wind = null;
-        if (Objects.equals(AppConfig.getUnitsType(), AppConfig.IMPERIAL)) {
-            speed = data.getWind().intValue();
-        } else {
-            speed = ((Double)(data.getWind() * 3.6)).intValue();
-        }
-        switch (AppConfig.getUnitsType()) {
-            case AppConfig.DEFAULT:
-            case AppConfig.METRIC:
-                wind = speed + "km/h";
-                break;
-            case AppConfig.IMPERIAL:
-                wind = speed + "mph";
-                break;
-        }
-        Integer windDegree = data.getWindDegree();
-        String humidity = data.getHumidity() + "%";
-        String pressure = data.getPressure() + "hPa";
+        tvWind.setText(data.getWind());
+        ivWindArrow.setRotation(data.getWindDegree());
+        tvHumidity.setText(data.getHumidity());
+        tvPressure.setText(data.getPressure());
+        tvVisibility.setText(data.getVisibility());
+    }
 
-        String visibility = String.valueOf((data.getVisibility().doubleValue()/1000)) + "km";
+    public String getTvWind() {
+        return tvWind.getText().toString();
+    }
 
+    public String getTvHumidity() {
+        return tvHumidity.getText().toString();
+    }
 
-        tvWind.setText(wind);
-        ivWindArrow.setRotation(windDegree);
-        tvHumidity.setText(humidity);
-        tvPressure.setText(pressure);
-        tvVisibility.setText(visibility);
+    public String getTvVisibility() {
+        return tvVisibility.getText().toString();
+    }
+
+    public String getTvPressure() {
+        return tvPressure.getText().toString();
+    }
+
+    public String getIvWindArrow() {
+        return (String)ivWindArrow.getTag();
+    }
+
+    public Integer getIvWindArrowDegree() {
+        return degree;
     }
 }

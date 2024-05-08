@@ -15,7 +15,9 @@ import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastRecord;
+import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastRecordJsonHolder;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherData;
+import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherJsonHolder;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -30,9 +32,7 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
     List<TextView> tvDays;
     List<TextView> tvHums;
     List<ImageView> ivDays;
-    List<ImageView> ivNights;
     List<TextView> tvTempDays;
-    List<TextView> tvTempNights;
 
     public WeatherFragmentForecast() {}
 
@@ -53,9 +53,7 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
         tvDays = new ArrayList<>();
         tvHums = new ArrayList<>();
         ivDays = new ArrayList<>();
-        ivNights = new ArrayList<>();
         tvTempDays = new ArrayList<>();
-        tvTempNights = new ArrayList<>();
         Log.i("Lokacja", getView().getResources().getResourcePackageName(R.id.tvDay1));
 
         Resources r = getView().getResources();
@@ -80,6 +78,20 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         fillForecast(records, formatter, zoneOffset, index);
+    }
+    public void updateData(ForecastWeatherJsonHolder data) {
+        int index = 0;
+        List<ForecastRecordJsonHolder> records = data.getRecords();
+        for (ForecastRecordJsonHolder record : records) {
+            tvTempDays.get(index).setText(record.getTemp());
+
+            tvHums.get(index).setText(record.getHumidity());
+
+            tvDays.get(index).setText(record.getWeekDay());
+
+            // ustaw icon
+            index++;
+        }
     }
 
     private void fillForecast(List<ForecastRecord> records, DateTimeFormatter formatter, ZoneOffset zoneOffset, int index) {
@@ -120,5 +132,37 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
     private String getDayName(ZonedDateTime zonedDateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE", Locale.getDefault());
         return zonedDateTime.format(formatter);
+    }
+
+    public List<String> getTvDays() {
+        List<String> list = new ArrayList<>();
+        for (TextView tv : tvDays) {
+            list.add(tv.getText().toString());
+        }
+        return list;
+    }
+
+    public List<String> getTvHums() {
+        List<String> list = new ArrayList<>();
+        for (TextView tv : tvHums) {
+            list.add(tv.getText().toString());
+        }
+        return list;
+    }
+
+    public List<String> getIvDays() {
+        List<String> list = new ArrayList<>();
+        for (ImageView iv : ivDays) {
+            list.add((String) iv.getTag());
+        }
+        return list;
+    }
+
+    public List<String> getTvTempDays() {
+        List<String> list = new ArrayList<>();
+        for (TextView tv : tvTempDays) {
+            list.add(tv.getText().toString());
+        }
+        return list;
     }
 }

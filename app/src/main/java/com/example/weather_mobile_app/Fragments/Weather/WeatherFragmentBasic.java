@@ -26,6 +26,8 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
     TextView tvTemp, tvCoords, tvDesc, tvCity, tvClock;
     ImageView ivWeather;
 
+    String currentIcon;
+
     public WeatherFragmentBasic() {}
 
     @Override
@@ -67,19 +69,15 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
         tvDesc.setText(desc);
         tvCity.setText(city);
         tvClock.setText(clock);
+//        ivWeather.setTag("test");
     }
 
     public void updateData(CurrentWeatherJsonHolder data) {
-        String temp = data.getTemp() + AppConfig.getDegreesType();
-        String coords = data.getCoords();
-        String desc = data.getDesc();
-        String city = data.getName();
-        String clock = data.getDate();
-        tvTemp.setText(temp);
-        tvCoords.setText(coords);
-        tvDesc.setText(desc);
-        tvCity.setText(city);
-        tvClock.setText(clock);
+        tvTemp.setText(data.getTemp());
+        tvCoords.setText(data.getCoords());
+        tvDesc.setText(data.getDesc());
+        tvCity.setText(data.getName());
+        tvClock.setText(data.getDate());
     }
 
     public static String convertTime(CurrentWeatherData data) {
@@ -95,5 +93,29 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 
         return zonedDateTime.format(formatter);
+    }
+
+    public String getTvTemp() {
+        return tvTemp.getText().toString();
+    }
+
+    public String getTvCoords() {
+        return tvCoords.getText().toString();
+    }
+
+    public String getTvDesc() {
+        return tvDesc.getText().toString();
+    }
+
+    public String getTvCity() {
+        return tvCity.getText().toString();
+    }
+
+    public String getTvClock() {
+        return tvClock.getText().toString();
+    }
+
+    public String getIvWeather() {
+        return (String)ivWeather.getTag();
     }
 }

@@ -184,18 +184,24 @@ public class MainActivity extends AppCompatActivity {
         apiService.getCurrentWeather(AppConfig.getUnitsType(), AppConfig.getCurrentLoc()).enqueue(new Callback<CurrentWeatherData>() {
             @Override
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
-                Log.i("Success", call.request().url() + " | hej " + String.valueOf(response.body().getName()));
+//                Log.i("Success", call.request().url() + " | hej " + String.valueOf(response.body().getName()));
 
                 ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(response.body());
-                CurrentWeatherJsonHolder holder = dataToHolderTransfer(response.body());
+                CurrentWeatherJsonHolder holder = ((ScreenSlidePagerAdapter)pagerAdapter).getApiCurrent();
                 saveOrUpdateJSON(holder);
+                writeToast("Api called");
             }
 
             @Override
             public void onFailure(Call<CurrentWeatherData> call, Throwable throwable) {
-                Log.i("Error current", Objects.requireNonNull(throwable.getCause()).getMessage() + " | " + throwable.getMessage());
+//                Log.i("Error current", Objects.requireNonNull(throwable.getCause()).getMessage() + " | " + throwable.getMessage());
 
                 CurrentWeatherJsonHolder holder = loadCurrentJSON();
+                if (holder.getTemp().equals("No data")) {
+                    writeToast("There is no saved data for this localization");
+                } else {
+                    writeToast("JSON data loaded");
+                }
                 Log.i("HOLDER", holder.toString());
                 ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(holder);
             }
@@ -204,24 +210,24 @@ public class MainActivity extends AppCompatActivity {
         apiService.getForecastWeather(AppConfig.getUnitsType(), AppConfig.getCurrentLoc()).enqueue(new Callback<ForecastWeatherData>() {
             @Override
             public void onResponse(Call<ForecastWeatherData> call, Response<ForecastWeatherData> response) {
-                Log.i("Success2", call.request().url() + " | hej " + String.valueOf(response.body().getCity().getName()));
+//                Log.i("Success2", call.request().url() + " | hej " + String.valueOf(response.body().getCity().getName()));
 
                 ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(response.body());
-                ForecastWeatherJsonHolder holder = dataToHolderTransfer(response.body());
+                ForecastWeatherJsonHolder holder = ((ScreenSlidePagerAdapter)pagerAdapter).getApiForecast();
+                Log.i("ONLINE SAVE FORECAST", holder.toString());
                 saveOrUpdateJSON(holder);
             }
 
             @Override
             public void onFailure(Call<ForecastWeatherData> call, Throwable throwable) {
-                Log.i("Error forecast", throwable.getMessage());
+//                Log.i("Error forecast", throwable.getMessage());
 
                 ForecastWeatherJsonHolder holder = loadForecastJSON();
                 Log.i("HOLDER_FORECAST", holder.toString());
 
-//                ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(holder);
+                ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(holder);
             }
         });
-        Toast.makeText(this, "Api called", Toast.LENGTH_SHORT).show();
     }
 
     private int findExistingLocationIndex(JSONArray jsonArray, String name) {
@@ -320,35 +326,35 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public CurrentWeatherJsonHolder dataToHolderTransfer(CurrentWeatherData data) {
-        String name = data.getName();
-        String coords = "Lat:" + data.getCoord().getLat()  + " Lon:" + data.getCoord().getLon();
-        String date = WeatherFragmentBasic.convertTime(data);
-        String icon = data.getWeather().get(0).getIcon();
-        String desc = data.getWeather().get(0).getDescription();
-        Integer temp = data.getMain().getTemp().intValue();
-        Integer degree = data.getWind().getDeg();
-        Double wind = data.getWind().getSpeed();
-        String humidity = data.getMain().getHumidity().toString();
-        Integer visibility = data.getVisibility();
-        String pressure = data.getMain().getPressure().toString();
-
-
-        CurrentWeatherJsonHolder holder = new CurrentWeatherJsonHolder(
-                name,
-                coords,
-                date,
-                icon,
-                desc,
-                temp,
-                degree,
-                wind,
-                humidity,
-                visibility,
-                pressure
-        );
-        return holder;
-    }
+//    public CurrentWeatherJsonHolder dataToHolderTransfer(CurrentWeatherData data) {
+//        String name = data.getName();
+//        String coords = "Lat:" + data.getCoord().getLat()  + " Lon:" + data.getCoord().getLon();
+//        String date = WeatherFragmentBasic.convertTime(data);
+//        String icon = data.getWeather().get(0).getIcon();
+//        String desc = data.getWeather().get(0).getDescription();
+//        Integer temp = data.getMain().getTemp().intValue();
+//        Integer degree = data.getWind().getDeg();
+//        Double wind = data.getWind().getSpeed();
+//        String humidity = data.getMain().getHumidity().toString();
+//        Integer visibility = data.getVisibility();
+//        String pressure = data.getMain().getPressure().toString();
+//
+//
+//        CurrentWeatherJsonHolder holder = new CurrentWeatherJsonHolder(
+//                name,
+//                coords,
+//                date,
+//                icon,
+//                desc,
+//                temp,
+//                degree,
+//                wind,
+//                humidity,
+//                visibility,
+//                pressure
+//        );
+//        return holder;
+//    }
 
     public ForecastWeatherJsonHolder dataToHolderTransfer(ForecastWeatherData data) {
         List<ForecastRecordJsonHolder> records = new ArrayList<>();
@@ -374,11 +380,11 @@ public class MainActivity extends AppCompatActivity {
             String date = data.getString(C_DATE);
             String icon = data.getString(C_ICON);
             String desc = data.getString(C_DESC);
-            Integer temp = data.getInt(C_TEMP);
+            String temp = data.getString(C_TEMP);
             Integer degree = data.getInt(C_WIND_DEGREE);
-            Double wind = data.getDouble(C_WIND);
+            String wind = data.getString(C_WIND);
             String humidity = data.getString(C_HUMIDITY);
-            Integer visibility = data.getInt(C_VISIBILITY);
+            String visibility = data.getString(C_VISIBILITY);
             String pressure = data.getString(C_PRESSURE);
 
             holder = new CurrentWeatherJsonHolder(
@@ -417,6 +423,7 @@ public class MainActivity extends AppCompatActivity {
                         object.getString(F_ICON),
                         object.getString(F_TEMP)
                         ));
+                Log.i("RECORD JSON", object.toString());
             }
 
             holder = new ForecastWeatherJsonHolder(name);
@@ -447,7 +454,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("EXCEPTION", "Here");
             e.printStackTrace();
         }
-        return null;
+        return new ForecastWeatherJsonHolder();
     }
 
     public CurrentWeatherJsonHolder loadCurrentJSON() {
@@ -468,7 +475,7 @@ public class MainActivity extends AppCompatActivity {
             Log.i("EXCEPTION", "Here");
             e.printStackTrace();
         }
-        return null;
+        return new CurrentWeatherJsonHolder();
     }
 
 
@@ -479,6 +486,7 @@ public class MainActivity extends AppCompatActivity {
             object.put(C_COORDS, data.getCoords());
             object.put(C_DATE, data.getDate());
             object.put(C_ICON, data.getIcon());
+            Log.i("ICON CHECK", data.getIcon());
             object.put(C_DESC, data.getDesc());
             object.put(C_TEMP, data.getTemp());
             object.put(C_WIND_DEGREE, data.getWindDegree());
