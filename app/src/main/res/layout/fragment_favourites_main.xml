@@ -31,7 +31,7 @@
             android:id="@+id/tvCurrentLoc"
             android:layout_width="0dp"
             android:layout_height="40dp"
-            android:text="None"
+            android:text="Not set"
             android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="28sp"

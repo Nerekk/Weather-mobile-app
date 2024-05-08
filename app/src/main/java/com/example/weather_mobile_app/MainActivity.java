@@ -168,13 +168,13 @@ public class MainActivity extends AppCompatActivity {
                     listener.onCityNameReceived(response.body().getName());
                 } else {
                     Log.i("GETCITY", "F");
-                    listener.onCityNameReceived("null");
+                    listener.onCityNameReceived("0");
                 }
             }
 
             @Override
             public void onFailure(Call<CurrentWeatherData> call, Throwable throwable) {
-                listener.onCityNameReceived("null");
+                listener.onCityNameReceived("0");
             }
         });
     }

@@ -81,9 +81,10 @@ public class FavouritesFragment extends Fragment {
         String curr = AppConfig.getCurrentLoc();
         if (curr != null) {
             currentLoc.setText(AppConfig.getCurrentLoc());
-        } else {
-            currentLoc.setText("None");
         }
+//        else {
+//            currentLoc.setText("Not set");
+//        }
     }
 
     private static void dialogAdd(ImageView ivAdd) {
@@ -113,7 +114,7 @@ public class FavouritesFragment extends Fragment {
                             MainActivity.getMainActivity().getCityNameFromApi(newItem, new CityNameListener() {
                                 @Override
                                 public void onCityNameReceived(String cityName) {
-                                    if (cityName.equals("null")) {
+                                    if (cityName.equals("0")) {
                                         MainActivity.writeToast("Wrong city!");
                                         return;
                                     }
