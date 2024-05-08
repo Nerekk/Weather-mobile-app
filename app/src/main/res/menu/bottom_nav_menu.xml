@@ -6,8 +6,8 @@
         android:title="Weather" />
     <item
         android:id="@+id/navFavourites"
-        android:icon="@mipmap/ic_favourite"
-        android:title="Favourites" />
+        android:icon="@mipmap/ic_loc_bar"
+        android:title="Localizations" />
     <item
         android:id="@+id/navSettings"
         android:icon="@mipmap/ic_settings"

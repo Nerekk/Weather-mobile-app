@@ -26,4 +26,6 @@
     <dimen name="favouritesFont">24sp</dimen>
     <dimen name="favouritesMargin">30dp</dimen>
     <dimen name="favouritesHeight">50dp</dimen>
+
+    <dimen name="iconButtonSize">70dp</dimen>
 </resources>

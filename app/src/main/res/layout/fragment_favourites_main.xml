@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -51,6 +52,7 @@
             android:id="@+id/lvLocs"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@drawable/fragment_bg"
             app:layout_constraintBottom_toTopOf="@+id/guideline9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -65,8 +67,8 @@
 
         <ImageView
             android:id="@+id/ivAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/iconButtonSize"
+            android:layout_height="@dimen/iconButtonSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline12"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +77,8 @@
 
         <ImageView
             android:id="@+id/ivDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/iconButtonSize"
+            android:layout_height="@dimen/iconButtonSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline12"
