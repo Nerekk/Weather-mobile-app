@@ -163,8 +163,13 @@ public class MainActivity extends AppCompatActivity {
         apiService.getCurrentWeather(AppConfig.getUnitsType(), city).enqueue(new Callback<CurrentWeatherData>() {
             @Override
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
-                String cityName = response.body().getName();
-                listener.onCityNameReceived(cityName);
+                if (response.isSuccessful()){
+                    Log.i("GETCITY", "S");
+                    listener.onCityNameReceived(response.body().getName());
+                } else {
+                    Log.i("GETCITY", "F");
+                    listener.onCityNameReceived("null");
+                }
             }
 
             @Override
@@ -183,11 +188,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
 //                Log.i("Success", call.request().url() + " | hej " + String.valueOf(response.body().getName()));
+                if (response.isSuccessful()) {
+                    ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(response.body());
+                    CurrentWeatherJsonHolder holder = ((ScreenSlidePagerAdapter)pagerAdapter).getApiCurrent();
+                    saveOrUpdateJSON(holder);
+                    writeToast("Api called");
+                } else {
+                    writeToast("Something went wrong with api!");
+                }
 
-                ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(response.body());
-                CurrentWeatherJsonHolder holder = ((ScreenSlidePagerAdapter)pagerAdapter).getApiCurrent();
-                saveOrUpdateJSON(holder);
-                writeToast("Api called");
             }
 
             @Override
@@ -209,11 +218,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ForecastWeatherData> call, Response<ForecastWeatherData> response) {
 //                Log.i("Success2", call.request().url() + " | hej " + String.valueOf(response.body().getCity().getName()));
-
-                ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(response.body());
-                ForecastWeatherJsonHolder holder = ((ScreenSlidePagerAdapter)pagerAdapter).getApiForecast();
-                Log.i("ONLINE SAVE FORECAST", holder.toString());
-                saveOrUpdateJSON(holder);
+                if (response.isSuccessful()) {
+                    ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(response.body());
+                    ForecastWeatherJsonHolder holder = ((ScreenSlidePagerAdapter)pagerAdapter).getApiForecast();
+                    Log.i("ONLINE SAVE FORECAST", holder.toString());
+                    saveOrUpdateJSON(holder);
+                }
             }
 
             @Override
