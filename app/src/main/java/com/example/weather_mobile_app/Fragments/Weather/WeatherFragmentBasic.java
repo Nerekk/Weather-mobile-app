@@ -97,7 +97,7 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
 
         ZonedDateTime zonedDateTime = instant.atZone(zoneOffset);
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         return zonedDateTime.format(formatter);
     }
