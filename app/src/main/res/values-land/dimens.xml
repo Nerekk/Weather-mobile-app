@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="fMargin">15dp</dimen>
+    <dimen name="fMargin">20dp</dimen>
     <dimen name="fragment1Margin">@dimen/fMargin</dimen>
     <dimen name="fragment2MarginHorizontal">@dimen/fMargin</dimen>
-    <dimen name="fragment2MarginTop">0dp</dimen>
+    <dimen name="fragment2MarginTop">@dimen/fMargin</dimen>
     <dimen name="fragment2MarginBottom">@dimen/fMargin</dimen>
     <dimen name="fItemMargin">5dp</dimen>
 
@@ -30,10 +30,10 @@
 
     <dimen name="iconButtonSize">70dp</dimen>
 
-    <dimen name="navBarHeight">70dp</dimen>
+    <dimen name="navBarHeight">50dp</dimen>
 
-    <dimen name="dialogAddHorizontal">30dp</dimen>
+    <dimen name="dialogAddHorizontal">140dp</dimen>
 
-    <dimen name="dialogDeleteHorizontal">50dp</dimen>
-    <dimen name="dialogDeleteListViewHeight">250dp</dimen>
+    <dimen name="dialogDeleteHorizontal">200dp</dimen>
+    <dimen name="dialogDeleteListViewHeight">150dp</dimen>
 </resources>

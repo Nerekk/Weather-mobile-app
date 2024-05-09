@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Weather-mobile-app</string>
+    <string name="navWeather">Weather</string>
+    <string name="navLocs">Localizations</string>
+    <string name="navSettings">Settings</string>
 </resources>

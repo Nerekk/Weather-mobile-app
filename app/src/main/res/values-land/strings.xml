@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather-mobile-app</string>
+    <string name="navWeather"> </string>
+    <string name="navLocs"> </string>
+    <string name="navSettings"> </string>
+</resources>

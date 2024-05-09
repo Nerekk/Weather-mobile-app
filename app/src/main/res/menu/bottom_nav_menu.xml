@@ -3,13 +3,13 @@
     <item
         android:id="@+id/navWeather"
         android:icon="@mipmap/ic_cloud"
-        android:title="Weather" />
+        android:title="@string/navWeather" />
     <item
         android:id="@+id/navFavourites"
         android:icon="@mipmap/ic_loc_bar"
-        android:title="Localizations" />
+        android:title="@string/navLocs" />
     <item
         android:id="@+id/navSettings"
         android:icon="@mipmap/ic_settings"
-        android:title="Settings" />
+        android:title="@string/navSettings" />
 </menu>

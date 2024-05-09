@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/fragment2MarginTop"
     android:layout_marginHorizontal="@dimen/fragment2MarginHorizontal"
     android:layout_marginBottom="@dimen/fragment2MarginBottom"
     android:background="@drawable/fragment_bg">
