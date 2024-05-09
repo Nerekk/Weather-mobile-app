@@ -56,9 +56,23 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
 
     public void updateData(CurrentWeatherData data) {
         String temp = data.getMain().getTemp().intValue() + AppConfig.getDegreesType();
-        String coords1 = data.getCoord().getLat().intValue() + AppConfig.DEGREES;
-        String coords2 = data.getCoord().getLon().intValue() + AppConfig.DEGREES;
-        String coords = "Lat:" + coords1 + " Lon:" + coords2;
+        String coords1;
+        String coords2;
+        if (data.getCoord().getLat().intValue() < 0) {
+            coords1 = data.getCoord().getLat().intValue() + AppConfig.DEGREES + "S";
+            coords1 = coords1.substring(1);
+        } else {
+            coords1 = data.getCoord().getLat().intValue() + AppConfig.DEGREES + "N";
+        }
+
+        if (data.getCoord().getLon().intValue() < 0) {
+            coords2 = data.getCoord().getLon().intValue() + AppConfig.DEGREES + "W";
+            coords2 = coords2.substring(1);
+        } else {
+            coords2 = data.getCoord().getLon().intValue() + AppConfig.DEGREES + "E";
+        }
+
+        String coords = coords1 + " " + coords2;
         String desc = String.valueOf(data.getWeather().get(0).getMain());
         String city = FavouritesFragment.getSetLoc();
         String icon = data.getWeather().get(0).getIcon();
