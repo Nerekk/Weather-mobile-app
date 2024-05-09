@@ -56,7 +56,7 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
         tvHums = new ArrayList<>();
         ivDays = new ArrayList<>();
         tvTempDays = new ArrayList<>();
-        Log.i("Lokacja", getView().getResources().getResourcePackageName(R.id.tvDay1));
+//        Log.i("Lokacja", getView().getResources().getResourcePackageName(R.id.tvDay1));
 
         Resources r = getView().getResources();
         String name = getView().getResources().getResourcePackageName(R.id.tvDay1);

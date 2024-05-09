@@ -46,13 +46,20 @@ public class FavouritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favourites_main, container, false);
         arrayList = MainActivity.getMainActivity().recoverFavList();
-        prepareComponents(view);
+//        prepareComponents(view);
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        prepareComponents(view);
     }
 
     private static void prepareComponents(View view) {
         currentLoc = view.findViewById(R.id.tvCurrentLoc);
-        updateCurrentLocalization();
+        Log.i("FAVOURITES", "1.PREPARE");
+        updateCurrentLocalization(false);
 
         locs = (ListView) view.findViewById(R.id.lvLocs);
         locs.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
@@ -68,6 +75,7 @@ public class FavouritesFragment extends Fragment {
                 String current = ((TextView)view).getText().toString();
                 AppConfig.setCurrentLoc(current);
                 currentLoc.setText(current);
+                Log.i("FAVOURITES", "1.GETAPI");
                 MainActivity.getMainActivity().getAPIData();
             }
         });
@@ -80,14 +88,16 @@ public class FavouritesFragment extends Fragment {
 
     }
 
-    private static void updateCurrentLocalization() {
+    private static void updateCurrentLocalization(boolean refresh) {
         String curr = AppConfig.getCurrentLoc();
         if (curr != null) {
             currentLoc.setText(AppConfig.getCurrentLoc());
         }
-//        else {
-//            currentLoc.setText("Not set");
-//        }
+        else {
+            currentLoc.setText("Not set");
+        }
+        if (refresh) MainActivity.getMainActivity().getAPIData();
+        Log.i("FAVOURITES", "2.GETAPI");
     }
 
     private static void dialogAdd(ImageView ivAdd) {
@@ -172,10 +182,11 @@ public class FavouritesFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String deletedItem = arrayList.get(position);
-                        Log.i("DELETE", "DELETING: " + deletedItem);
+//                        Log.i("DELETE", "DELETING: " + deletedItem);
                         if (Objects.equals(deletedItem, AppConfig.getCurrentLoc())) {
                             AppConfig.setCurrentLoc(null);
-                            updateCurrentLocalization();
+                            updateCurrentLocalization(true);
+                            Log.i("FAVOURITES", "2.ITEM_CLICK");
                         }
                         MainActivity.getMainActivity().removeDataJSON(JSON_CURRENT, deletedItem);
                         MainActivity.getMainActivity().removeDataJSON(JSON_FORECAST, deletedItem);

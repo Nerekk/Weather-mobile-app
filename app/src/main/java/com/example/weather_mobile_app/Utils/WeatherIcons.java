@@ -25,7 +25,7 @@ public class WeatherIcons {
     public static final String IC_50N = "50n";
 
     public static int getIconResource(String id) {
-        Log.i("icon", id);
+//        Log.i("icon", id);
         switch (id) {
             case IC_01D:
                 return R.drawable.ic_01d;

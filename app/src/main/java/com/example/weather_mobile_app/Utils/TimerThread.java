@@ -15,7 +15,7 @@ public class TimerThread extends Thread {
         while (!Thread.currentThread().isInterrupted()) {
             while (AppConfig.threadTimer > 0) {
                 AppConfig.threadTimer--;
-                Log.i("THREAD", "DECREMENTATION TO: " + AppConfig.threadTimer);
+//                Log.i("THREAD", "DECREMENTATION TO: " + AppConfig.threadTimer);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -24,7 +24,9 @@ public class TimerThread extends Thread {
                 }
             }
 
+            if (Thread.currentThread().isInterrupted()) break;
             MainActivity.getMainActivity().getAPIData();
+            Log.i("THREAD", "5.GETAPI");
             AppConfig.prepareTimer();
         }
     }

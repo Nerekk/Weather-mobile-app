@@ -35,8 +35,15 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
         this.fragmentList = fragmentList;
     }
 
+
+    /* fragment favourites (napewno przynajmniej ten jeden bo inne nie testowane)
+    * wykonuje kilka razy onCreateView zanim wgl wykona sie poniższa metoda createFragment
+    * dopiero gdy poniższa metoda wykona się na wybranym fragmencie to fragment favourites przestaje
+    * tworzyć swoj fragment na nowo
+    */
     @Override
     public Fragment createFragment(int position) {
+        Log.i("CREATE FRAGMENT", "CF: " + position);
         return fragmentList.get(position);
     }
 
@@ -48,7 +55,7 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
     public void updateApiCurrent(CurrentWeatherData data) {
         Fragment weather = fragmentList.get(0);
         WeatherFragmentBasic weatherBasic = (WeatherFragmentBasic) weather.getChildFragmentManager().findFragmentByTag("basicFragment");
-        Log.i("FRAGMENT", String.valueOf(weatherBasic==null));
+//        Log.i("FRAGMENT", String.valueOf(weatherBasic==null));
         weatherBasic.updateData(data);
 
         WeatherFragmentAdditional weatherAdditional = (WeatherFragmentAdditional) weather.getChildFragmentManager().findFragmentByTag("additionalFragment");
@@ -58,7 +65,7 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
     public void updateApiCurrent(CurrentWeatherJsonHolder data) {
         Fragment weather = fragmentList.get(0);
 //        while (!weather.isAdded()) {}
-        Log.i("FRAGMENT", String.valueOf(weather.isAdded()));
+//        Log.i("FRAGMENT", String.valueOf(weather.isAdded()));
         WeatherFragmentBasic weatherBasic = (WeatherFragmentBasic) weather.getChildFragmentManager().findFragmentByTag("basicFragment");
         weatherBasic.updateData(data);
 
