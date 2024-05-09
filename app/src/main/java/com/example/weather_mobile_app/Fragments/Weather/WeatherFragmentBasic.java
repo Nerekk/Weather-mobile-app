@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.Fragments.FavouritesFragment;
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
+import com.example.weather_mobile_app.MainActivity;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.Utils.WeatherIcons;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
@@ -29,7 +30,6 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
 
     String currentIcon;
 
-    public WeatherFragmentBasic() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         assignIds();
+        updateData(MainActivity.getMainActivity().getCurrentDataOffline());
     }
 
     @Override

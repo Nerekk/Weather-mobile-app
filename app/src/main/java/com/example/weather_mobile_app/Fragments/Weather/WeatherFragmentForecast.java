@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
+import com.example.weather_mobile_app.MainActivity;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.Utils.WeatherIcons;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastRecord;
@@ -35,7 +36,6 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
     List<ImageView> ivDays;
     List<TextView> tvTempDays;
 
-    public WeatherFragmentForecast() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         assignIds();
+        updateData(MainActivity.getMainActivity().getForecastDataOffline());
     }
 
     @Override

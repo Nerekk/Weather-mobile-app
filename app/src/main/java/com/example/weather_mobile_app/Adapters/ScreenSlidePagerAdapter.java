@@ -4,12 +4,18 @@ import android.util.Log;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.example.weather_mobile_app.AppConfig;
+import com.example.weather_mobile_app.Fragments.FavouritesFragment;
+import com.example.weather_mobile_app.Fragments.SettingsFragment;
+import com.example.weather_mobile_app.Fragments.Weather.WeatherFragment;
 import com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentAdditional;
 import com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentBasic;
 import com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentForecast;
+import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherJsonHolder;
 import com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastRecordJsonHolder;
@@ -31,15 +37,7 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
 
     @Override
     public Fragment createFragment(int position) {
-        switch (position) {
-            case 0:
-                return fragmentList.get(0);
-            case 1:
-                return fragmentList.get(1);
-            case 2:
-                return fragmentList.get(2);
-        }
-        return null;
+        return fragmentList.get(position);
     }
 
     @Override
@@ -59,8 +57,9 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
 
     public void updateApiCurrent(CurrentWeatherJsonHolder data) {
         Fragment weather = fragmentList.get(0);
+//        while (!weather.isAdded()) {}
+        Log.i("FRAGMENT", String.valueOf(weather.isAdded()));
         WeatherFragmentBasic weatherBasic = (WeatherFragmentBasic) weather.getChildFragmentManager().findFragmentByTag("basicFragment");
-        Log.i("FRAGMENT", String.valueOf(weatherBasic==null));
         weatherBasic.updateData(data);
 
         WeatherFragmentAdditional weatherAdditional = (WeatherFragmentAdditional) weather.getChildFragmentManager().findFragmentByTag("additionalFragment");

@@ -76,4 +76,8 @@ public class AppConfig {
     public static void setCurrentLoc(String currentLoc) {
         AppConfig.currentLoc = currentLoc;
     }
+
+    public static void prepareTimer() {
+        threadTimer = getRefreshTime();
+    }
 }

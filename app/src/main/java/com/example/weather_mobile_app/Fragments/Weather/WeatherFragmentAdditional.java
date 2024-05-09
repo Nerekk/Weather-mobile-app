@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.Interfaces.WeatherFragmentService;
+import com.example.weather_mobile_app.MainActivity;
 import com.example.weather_mobile_app.R;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherJsonHolder;
@@ -36,6 +37,7 @@ public class WeatherFragmentAdditional extends Fragment implements WeatherFragme
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         assignIds();
+        updateData(MainActivity.getMainActivity().getCurrentDataOffline());
     }
 
     @Override

@@ -20,8 +20,8 @@ import com.example.weather_mobile_app.Adapters.ScreenSlidePagerAdapter;
 import com.example.weather_mobile_app.Fragments.FavouritesFragment;
 import com.example.weather_mobile_app.Fragments.SettingsFragment;
 import com.example.weather_mobile_app.Fragments.Weather.WeatherFragment;
-import com.example.weather_mobile_app.Fragments.Weather.WeatherFragmentBasic;
 import com.example.weather_mobile_app.Interfaces.CityNameListener;
+import com.example.weather_mobile_app.Utils.TimerThread;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 import com.example.weather_mobile_app.Interfaces.RequestWeatherService;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherJsonHolder;
@@ -43,7 +43,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import retrofit2.Call;
@@ -65,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static MainActivity mainActivity;
 
+    private TimerThread thread;
+
     RequestWeatherService apiService;
 
     @Override
@@ -85,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
         mainActivity = this;
 
         prepareAPIService();
-        getAPIData();
-
+//        getAPIData();
+//        getDataOffline();
 
 //        ((ScreenSlidePagerAdapter)pagerAdapter).updateApi(dataPack);
     }
@@ -94,15 +95,41 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadSharedPreferences();
         Log.i("ONRESUME", "ONR");
+
+        thread = new TimerThread();
+        thread.start();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        thread.interrupt();
+
         saveSharedPreferences();
         Log.i("ONPAUSE", "ONP");
+    }
+
+    public void restartThread() {
+        if (thread != null) {
+            thread.interrupt();
+            AppConfig.prepareTimer();
+            thread = new TimerThread();
+            thread.start();
+        }
+    }
+
+    public CurrentWeatherJsonHolder getCurrentDataOffline() {
+        CurrentWeatherJsonHolder holder1 = loadCurrentJSON();
+        if (holder1.getTemp().equals("No data")) {
+            writeToast("There is no saved data for this localization");
+        }
+        return holder1;
+    }
+
+    public ForecastWeatherJsonHolder getForecastDataOffline() {
+        ForecastWeatherJsonHolder holder2 = loadForecastJSON();
+        return holder2;
     }
 
     private void saveSharedPreferences() {
@@ -144,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             return new ArrayList<>();
         }
-
     }
 
     public static MainActivity getMainActivity() {
@@ -451,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             String response = getJsonArrayFromFile(JSON_FORECAST);
             JSONArray jsonArray = new JSONArray(response);
-            Log.i("JSON_FINDING", FavouritesFragment.getSetLoc());
+//            Log.i("JSON_FINDING", FavouritesFragment.getSetLoc());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject locationJson = jsonArray.getJSONObject(i);
                 String cityName = locationJson.getString(C_NAME);
@@ -472,7 +498,7 @@ public class MainActivity extends AppCompatActivity {
 //            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_FORECAST)));
             String response = getJsonArrayFromFile(JSON_CURRENT);
             JSONArray jsonArray = new JSONArray(response);
-            Log.i("JSON_FINDING", FavouritesFragment.getSetLoc());
+//            Log.i("JSON_FINDING", FavouritesFragment.getSetLoc());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject locationJson = jsonArray.getJSONObject(i);
                 String cityName = locationJson.getString(C_NAME);
@@ -535,9 +561,13 @@ public class MainActivity extends AppCompatActivity {
     private void viewPagerHandle() {
         viewPager = findViewById(R.id.pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this, fragmentList);
+        pagerAdapter.createFragment(0);
+        pagerAdapter.createFragment(1);
+        pagerAdapter.createFragment(2);
         viewPager.setSaveFromParentEnabled(false);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(pagerAdapter);
+
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

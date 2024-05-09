@@ -45,6 +45,7 @@ public class SettingsFragment extends Fragment {
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MainActivity.getMainActivity().restartThread();
                 MainActivity.getMainActivity().getAPIData();
             }
         });

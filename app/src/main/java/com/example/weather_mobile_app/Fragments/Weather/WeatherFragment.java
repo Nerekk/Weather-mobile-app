@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.weather_mobile_app.MainActivity;
 import com.example.weather_mobile_app.R;
 
 public class WeatherFragment extends Fragment {
