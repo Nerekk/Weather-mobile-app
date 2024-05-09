@@ -36,7 +36,7 @@ public class ScreenSlidePagerAdapter extends FragmentStateAdapter {
     }
 
 
-    /* fragment favourites (napewno przynajmniej ten jeden bo inne nie testowane)
+    /* [dziwne zachowanie] fragment favourites (napewno przynajmniej ten jeden bo inne nie testowane)
     * wykonuje kilka razy onCreateView zanim wgl wykona sie poniższa metoda createFragment
     * dopiero gdy poniższa metoda wykona się na wybranym fragmencie to fragment favourites przestaje
     * tworzyć swoj fragment na nowo

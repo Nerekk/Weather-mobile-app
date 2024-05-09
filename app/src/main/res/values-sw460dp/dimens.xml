@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fMargin">15dp</dimen>
+    <dimen name="fragment1Margin">@dimen/fMargin</dimen>
+    <dimen name="fragment2MarginHorizontal">@dimen/fMargin</dimen>
+    <dimen name="fragment2MarginTop">@dimen/fMargin</dimen>
+    <dimen name="fragment2MarginBottom">@dimen/fMargin</dimen>
+    <dimen name="fItemMargin">5dp</dimen>
+
+    <dimen name="f1LeftCity">22dp</dimen>
+    <dimen name="f1LeftAdditional">16dp</dimen>
+
+    <dimen name="f1MidTemp">64dp</dimen>
+    <dimen name="f1MidDesc">40dp</dimen>
+
+    <dimen name="f1ColumnMargin">10dp</dimen>
+
+    <dimen name="f2HeadSize">16sp</dimen>
+    <dimen name="f2ItemSize">16sp</dimen>
+
+    <dimen name="f3ItemSize">24dp</dimen>
+    <dimen name="f3ItemSize2">20dp</dimen>
+    <dimen name="f3TableRowMargin">5dp</dimen>
+
+    <dimen name="settingsFont">24sp</dimen>
+
+    <dimen name="favouritesFont">24sp</dimen>
+    <dimen name="favouritesMargin">30dp</dimen>
+    <dimen name="favouritesHeight">50dp</dimen>
+
+    <dimen name="iconButtonSize">90dp</dimen>
+
+    <dimen name="navBarHeight">70dp</dimen>
+
+    <dimen name="dialogAddHorizontal">200dp</dimen>
+
+    <dimen name="dialogDeleteHorizontal">250dp</dimen>
+    <dimen name="dialogDeleteListViewHeight">250dp</dimen>
+</resources>

@@ -5,6 +5,7 @@ import static com.example.weather_mobile_app.WeatherAPI.Models.Forecast.Forecast
 import static com.example.weather_mobile_app.WeatherAPI.Models.Forecast.ForecastWeatherJsonHolder.*;
 
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -67,13 +68,16 @@ public class MainActivity extends AppCompatActivity {
     private TimerThread thread;
 
     RequestWeatherService apiService;
+    Configuration configuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
+        configuration = getResources().getConfiguration();
+        Log.i("CONFIG", "SSW: " + configuration.smallestScreenWidthDp);
 
         loadSharedPreferences();
 
@@ -81,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Instantiate a ViewPager2 and a PagerAdapter.
         viewPagerHandle();
-        setBottomNavViewListeners();
+
+        if (configuration.smallestScreenWidthDp < 460)
+            setBottomNavViewListeners();
 
         mainActivity = this;
 
@@ -566,22 +572,27 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setSaveFromParentEnabled(false);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(pagerAdapter);
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                bottomNavigationView.getMenu().getItem(position).setChecked(true);
-            }
-        });
-        viewPager.setCurrentItem(AppConfig.currentPagePos);
+
+        if (configuration.smallestScreenWidthDp < 460) {
+            bottomNavigationView = findViewById(R.id.bottomNavigationView);
+            viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+                @Override
+                public void onPageSelected(int position) {
+                    super.onPageSelected(position);
+                    bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                }
+            });
+            viewPager.setCurrentItem(AppConfig.currentPagePos);
+        }
     }
 
     private void createFragmentList() {
         fragmentList = new ArrayList<>();
         fragmentList.add(new WeatherFragment());
-        fragmentList.add(new FavouritesFragment());
-        fragmentList.add(new SettingsFragment());
+        if (configuration.smallestScreenWidthDp < 460) {
+            fragmentList.add(new FavouritesFragment());
+            fragmentList.add(new SettingsFragment());
+        }
     }
 
     private void setBottomNavViewListeners() {
