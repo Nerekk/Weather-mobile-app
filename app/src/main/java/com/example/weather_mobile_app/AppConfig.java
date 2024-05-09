@@ -1,7 +1,10 @@
 package com.example.weather_mobile_app;
 
+import java.io.File;
+
 public class AppConfig {
     public static boolean isRefreshSwitchEnabled = false;
+    public static File PATH_DIR;
 
     public static final int UNIT_D = 0;
     public static final int UNIT_M = 1;

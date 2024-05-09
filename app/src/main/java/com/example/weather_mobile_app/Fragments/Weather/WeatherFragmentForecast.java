@@ -89,7 +89,6 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
 
             tvDays.get(index).setText(record.getWeekDay());
 
-            // ustaw icon
             String icon = record.getIcon();
             ivDays.get(index).setTag(icon);
             ivDays.get(index).setImageResource(WeatherIcons.getIconResource(icon));

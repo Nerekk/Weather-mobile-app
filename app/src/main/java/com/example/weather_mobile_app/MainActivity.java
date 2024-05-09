@@ -21,6 +21,7 @@ import com.example.weather_mobile_app.Fragments.FavouritesFragment;
 import com.example.weather_mobile_app.Fragments.SettingsFragment;
 import com.example.weather_mobile_app.Fragments.Weather.WeatherFragment;
 import com.example.weather_mobile_app.Interfaces.CityNameListener;
+import com.example.weather_mobile_app.Utils.DataHelper;
 import com.example.weather_mobile_app.Utils.TimerThread;
 import com.example.weather_mobile_app.WeatherAPI.Models.Current.CurrentWeatherData;
 import com.example.weather_mobile_app.Interfaces.RequestWeatherService;
@@ -75,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AppConfig.PATH_DIR = getApplicationContext().getFilesDir();
         configuration = getResources().getConfiguration();
 
         loadSharedPreferences();
@@ -117,13 +119,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public CurrentWeatherJsonHolder getCurrentDataOffline() {
-        CurrentWeatherJsonHolder holder1 = loadCurrentJSON();
+        CurrentWeatherJsonHolder holder1 = DataHelper.loadCurrentJSON();
 
         return holder1;
     }
 
     public ForecastWeatherJsonHolder getForecastDataOffline() {
-        ForecastWeatherJsonHolder holder2 = loadForecastJSON();
+        ForecastWeatherJsonHolder holder2 = DataHelper.loadForecastJSON();
         return holder2;
     }
 
@@ -209,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(response.body());
                     CurrentWeatherJsonHolder holder = ((ScreenSlidePagerAdapter)pagerAdapter).getApiCurrent();
-                    saveOrUpdateJSON(holder);
+                    DataHelper.saveOrUpdateJSON(holder);
                     writeToast("Api called");
                 } else {
                     ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(new CurrentWeatherJsonHolder());
@@ -219,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<CurrentWeatherData> call, Throwable throwable) {
-                CurrentWeatherJsonHolder holder = loadCurrentJSON();
+                CurrentWeatherJsonHolder holder = DataHelper.loadCurrentJSON();
                 if (holder.getTemp().equals("No data")) {
                     writeToast("There is no saved data for this localization");
                 } else {
@@ -235,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(response.body());
                     ForecastWeatherJsonHolder holder = ((ScreenSlidePagerAdapter)pagerAdapter).getApiForecast();
-                    saveOrUpdateJSON(holder);
+                    DataHelper.saveOrUpdateJSON(holder);
                 } else {
                     ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(new ForecastWeatherJsonHolder());
                 }
@@ -243,280 +245,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ForecastWeatherData> call, Throwable throwable) {
-                ForecastWeatherJsonHolder holder = loadForecastJSON();
+                ForecastWeatherJsonHolder holder = DataHelper.loadForecastJSON();
                 ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(holder);
             }
         });
     }
 
-    private int findExistingLocationIndex(JSONArray jsonArray, String name) {
-        for (int i = 0; i < jsonArray.length(); i++) {
-            try {
-                JSONObject existingLocationJson = jsonArray.getJSONObject(i);
-                if (existingLocationJson.getString("name").equals(name)) {
-                    return i;
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        return -1;
-    }
-
-    public void saveOrUpdateJSON(CurrentWeatherJsonHolder data) {
-        JSONArray jsonArray;
-        try {
-            String response = getJsonArrayFromFile(JSON_CURRENT);
-            jsonArray = new JSONArray(response);
-        } catch (IOException | JSONException e) {
-            jsonArray = new JSONArray();
-        }
-
-        JSONObject localization = createJsonObject(data);
-        int existingIndex = findExistingLocationIndex(jsonArray, AppConfig.getCurrentLoc());
-
-        if (existingIndex != -1) {
-            jsonArray.remove(existingIndex);
-        }
-
-        jsonArray.put(localization);
-
-        File file = new File(getApplicationContext().getFilesDir(), JSON_CURRENT);
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(jsonArray.toString());
-            bufferedWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-    @NonNull
-    private String getJsonArrayFromFile(String filename) throws IOException {
-        File file = new File(getApplicationContext().getFilesDir(), filename);
-        FileReader fileReader = new FileReader(file);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        StringBuilder stringBuilder = new StringBuilder();
-        String line = bufferedReader.readLine();
-        while (line != null){
-            stringBuilder.append(line).append("\n");
-            line = bufferedReader.readLine();
-        }
-        bufferedReader.close();
-        String responce = stringBuilder.toString();
-        return responce;
-    }
-
-    public void saveOrUpdateJSON(ForecastWeatherJsonHolder data) {
-        JSONArray jsonArray;
-        try {
-            String response = getJsonArrayFromFile(JSON_FORECAST);
-            jsonArray = new JSONArray(response);
-
-        } catch (IOException | JSONException e) {
-            jsonArray = new JSONArray();
-        }
-
-        JSONObject localization = createJsonObject(data);
-        int existingIndex = findExistingLocationIndex(jsonArray, AppConfig.getCurrentLoc());
-
-        if (existingIndex != -1) {
-            jsonArray.remove(existingIndex);
-        }
-
-        jsonArray.put(localization);
-
-        File file = new File(getApplicationContext().getFilesDir(), JSON_FORECAST);
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(jsonArray.toString());
-            bufferedWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void removeDataJSON(String filename, String name) {
-        JSONArray jsonArray;
-        try {
-            String response = getJsonArrayFromFile(filename);
-            jsonArray = new JSONArray(response);
-
-        } catch (IOException | JSONException e) {
-            jsonArray = new JSONArray();
-        }
-
-        int existingIndex = findExistingLocationIndex(jsonArray, name);
-
-        if (existingIndex != -1) {
-            jsonArray.remove(existingIndex);
-        }
-
-        File file = new File(getApplicationContext().getFilesDir(), filename);
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(jsonArray.toString());
-            bufferedWriter.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public ForecastWeatherJsonHolder dataToHolderTransfer(ForecastWeatherData data) {
-        List<ForecastRecordJsonHolder> records = new ArrayList<>();
-        String name = data.getCity().getName();
-        for (ForecastRecord record : data.getList()) {
-            records.add(new ForecastRecordJsonHolder(
-                    record.getDt_txt(),
-                    String.valueOf(record.getMain().getHumidity()),
-                    record.getWeather().get(0).getIcon(),
-                    String.valueOf(record.getMain().getTemp().intValue())));
-        }
-
-        ForecastWeatherJsonHolder holder = new ForecastWeatherJsonHolder(name);
-        holder.setRecords(records);
-        return holder;
-    }
-
-    public CurrentWeatherJsonHolder jsonToHolderTransfer(JSONObject data) {
-        CurrentWeatherJsonHolder holder;
-        try {
-            String name = data.getString(C_NAME);
-            String coords = data.getString(C_COORDS);
-            String date = data.getString(C_DATE);
-            String icon = data.getString(C_ICON);
-            String desc = data.getString(C_DESC);
-            String temp = data.getString(C_TEMP);
-            Integer degree = data.getInt(C_WIND_DEGREE);
-            String wind = data.getString(C_WIND);
-            String humidity = data.getString(C_HUMIDITY);
-            String visibility = data.getString(C_VISIBILITY);
-            String pressure = data.getString(C_PRESSURE);
-
-            holder = new CurrentWeatherJsonHolder(
-                    name,
-                    coords,
-                    date,
-                    icon,
-                    desc,
-                    temp,
-                    degree,
-                    wind,
-                    humidity,
-                    visibility,
-                    pressure
-            );
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-
-        return holder;
-    }
-
-    public ForecastWeatherJsonHolder jsonToHolderTransferForecast(JSONObject data) {
-        ForecastWeatherJsonHolder holder;
-        try {
-            String name = data.getString(C_NAME);
-            JSONArray jsonArray = data.getJSONArray(F_RECORDS);
-            List<ForecastRecordJsonHolder> records = new ArrayList<>();
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject object = jsonArray.getJSONObject(i);
-                records.add(new ForecastRecordJsonHolder(
-                        object.getString(F_WEEK_DAY),
-                        object.getString(F_HUMIDITY),
-                        object.getString(F_ICON),
-                        object.getString(F_TEMP)
-                        ));
-            }
-
-            holder = new ForecastWeatherJsonHolder(name);
-            holder.setRecords(records);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-
-        return holder;
-    }
-
-    public ForecastWeatherJsonHolder loadForecastJSON() {
-        try {
-            String response = getJsonArrayFromFile(JSON_FORECAST);
-            JSONArray jsonArray = new JSONArray(response);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject locationJson = jsonArray.getJSONObject(i);
-                String cityName = locationJson.getString(C_NAME);
-                if (cityName.equals(AppConfig.getCurrentLoc())) {
-                    return jsonToHolderTransferForecast(locationJson);
-                }
-            }
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-        return new ForecastWeatherJsonHolder();
-    }
-
-    public CurrentWeatherJsonHolder loadCurrentJSON() {
-        try {
-            String response = getJsonArrayFromFile(JSON_CURRENT);
-            JSONArray jsonArray = new JSONArray(response);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject locationJson = jsonArray.getJSONObject(i);
-                String cityName = locationJson.getString(C_NAME);
-                if (cityName.equals(AppConfig.getCurrentLoc())) {
-                    return jsonToHolderTransfer(locationJson);
-                }
-            }
-        } catch (IOException | JSONException e) {
-            e.printStackTrace();
-        }
-        return new CurrentWeatherJsonHolder();
-    }
-
-
-    private JSONObject createJsonObject(CurrentWeatherJsonHolder data) {
-        JSONObject object = new JSONObject();
-        try {
-            object.put(C_NAME, data.getName());
-            object.put(C_COORDS, data.getCoords());
-            object.put(C_DATE, data.getDate());
-            object.put(C_ICON, data.getIcon());
-            object.put(C_DESC, data.getDesc());
-            object.put(C_TEMP, data.getTemp());
-            object.put(C_WIND_DEGREE, data.getWindDegree());
-            object.put(C_WIND, data.getWind());
-            object.put(C_HUMIDITY, data.getHumidity());
-            object.put(C_VISIBILITY, data.getVisibility());
-            object.put(C_PRESSURE, data.getPressure());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return object;
-    }
-
-    private JSONObject createJsonObject(ForecastWeatherJsonHolder data) {
-        JSONObject object = new JSONObject();
-        try {
-            object.put(F_NAME, data.getName());
-
-            JSONArray forecastsJson = new JSONArray();
-            for (ForecastRecordJsonHolder record : data.getRecords()) {
-                JSONObject forecastJson = new JSONObject();
-                forecastJson.put(F_WEEK_DAY, record.getWeekDay());
-                forecastJson.put(F_HUMIDITY, record.getHumidity());
-                forecastJson.put(F_ICON, record.getIcon());
-                forecastJson.put(F_TEMP, record.getTemp());
-                forecastsJson.put(forecastJson);
-            }
-            object.put(F_RECORDS, forecastsJson);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return object;
-    }
 
     private void viewPagerHandle() {
         viewPager = findViewById(R.id.pager);

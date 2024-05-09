@@ -24,6 +24,7 @@ import com.example.weather_mobile_app.AppConfig;
 import com.example.weather_mobile_app.Interfaces.CityNameListener;
 import com.example.weather_mobile_app.MainActivity;
 import com.example.weather_mobile_app.R;
+import com.example.weather_mobile_app.Utils.DataHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -170,8 +171,8 @@ public class FavouritesFragment extends Fragment {
                             AppConfig.setCurrentLoc(null);
                             updateCurrentLocalization(true);
                         }
-                        MainActivity.getMainActivity().removeDataJSON(JSON_CURRENT, deletedItem);
-                        MainActivity.getMainActivity().removeDataJSON(JSON_FORECAST, deletedItem);
+                        DataHelper.removeDataJSON(JSON_CURRENT, deletedItem);
+                        DataHelper.removeDataJSON(JSON_FORECAST, deletedItem);
 
                         arrayList.remove(position);
                         adapter.notifyDataSetChanged();

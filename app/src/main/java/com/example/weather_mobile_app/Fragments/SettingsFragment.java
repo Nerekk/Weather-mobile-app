@@ -57,14 +57,7 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        unitList = new ArrayList<>();
-        unitList.add("Default (Kelvin)");
-        unitList.add("Metric (Celsius)");
-        unitList.add("Imperial (Fahrenheit)");
-
-        units = (ListView) view.findViewById(R.id.lvUnits);
-        adapter = new ArrayAdapter<>(MainActivity.getMainActivity(), android.R.layout.simple_list_item_1, unitList);
-        units.setAdapter(adapter);
+        createUnitListView(view);
 
         updateUnitInfo();
         units.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,6 +69,17 @@ public class SettingsFragment extends Fragment {
                 MainActivity.writeToast("Units set: " + unitList.get(position));
             }
         });
+    }
+
+    private static void createUnitListView(View view) {
+        unitList = new ArrayList<>();
+        unitList.add("Default (Kelvin)");
+        unitList.add("Metric (Celsius)");
+        unitList.add("Imperial (Fahrenheit)");
+
+        units = (ListView) view.findViewById(R.id.lvUnits);
+        adapter = new ArrayAdapter<>(MainActivity.getMainActivity(), android.R.layout.simple_list_item_1, unitList);
+        units.setAdapter(adapter);
     }
 
     private static void updateUnitInfo() {

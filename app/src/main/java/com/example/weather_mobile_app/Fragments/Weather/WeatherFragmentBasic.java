@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.weather_mobile_app.AppConfig;
@@ -55,23 +56,11 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
 
     public void updateData(CurrentWeatherData data) {
         String temp = data.getMain().getTemp().intValue() + AppConfig.getDegreesType();
-        String coords1;
-        String coords2;
-        if (data.getCoord().getLat().intValue() < 0) {
-            coords1 = data.getCoord().getLat().intValue() + AppConfig.DEGREES + "S";
-            coords1 = coords1.substring(1);
-        } else {
-            coords1 = data.getCoord().getLat().intValue() + AppConfig.DEGREES + "N";
-        }
 
-        if (data.getCoord().getLon().intValue() < 0) {
-            coords2 = data.getCoord().getLon().intValue() + AppConfig.DEGREES + "W";
-            coords2 = coords2.substring(1);
-        } else {
-            coords2 = data.getCoord().getLon().intValue() + AppConfig.DEGREES + "E";
-        }
-
+        String coords1 = getCoordsFormatting(data.getCoord().getLat(), "S", "N");
+        String coords2 = getCoordsFormatting(data.getCoord().getLon(), "W", "E");
         String coords = coords1 + " " + coords2;
+
         String desc = String.valueOf(data.getWeather().get(0).getMain());
         String city = FavouritesFragment.getSetLoc();
         String icon = data.getWeather().get(0).getIcon();
@@ -84,6 +73,18 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
         tvClock.setText(clock);
         ivWeather.setTag(icon);
         ivWeather.setImageResource(WeatherIcons.getIconResource(icon));
+    }
+
+    @NonNull
+    private static String getCoordsFormatting(Double data, String S, String N) {
+        String coords;
+        if (data.intValue() < 0) {
+            coords = data.intValue() + AppConfig.DEGREES + S;
+            coords = coords.substring(1);
+        } else {
+            coords = data.intValue() + AppConfig.DEGREES + N;
+        }
+        return coords;
     }
 
     public void updateData(CurrentWeatherJsonHolder data) {
