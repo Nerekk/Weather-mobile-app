@@ -1,5 +1,8 @@
 package com.example.weather_mobile_app.Fragments;
 
+import static com.example.weather_mobile_app.MainActivity.JSON_CURRENT;
+import static com.example.weather_mobile_app.MainActivity.JSON_FORECAST;
+
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -174,6 +177,9 @@ public class FavouritesFragment extends Fragment {
                             AppConfig.setCurrentLoc(null);
                             updateCurrentLocalization();
                         }
+                        MainActivity.getMainActivity().removeDataJSON(JSON_CURRENT, deletedItem);
+                        MainActivity.getMainActivity().removeDataJSON(JSON_FORECAST, deletedItem);
+
                         arrayList.remove(position);
                         adapter.notifyDataSetChanged();
                         dialog.dismiss();

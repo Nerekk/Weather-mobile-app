@@ -54,8 +54,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private static final String SP_FILE = "MyPrefsFile";
-    private static final String JSON_CURRENT = "SavedCurrentLocations.json";
-    private static final String JSON_FORECAST = "SavedForecastLocations.json";
+    public static final String JSON_CURRENT = "SavedCurrentLocations.json";
+    public static final String JSON_FORECAST = "SavedForecastLocations.json";
 
     private ViewPager2 viewPager;
     private BottomNavigationView bottomNavigationView;
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         mainActivity = this;
 
         prepareAPIService();
-//        getAPIData();
+        getAPIData();
 //        getDataOffline();
 
 //        ((ScreenSlidePagerAdapter)pagerAdapter).updateApi(dataPack);
@@ -357,6 +357,34 @@ public class MainActivity extends AppCompatActivity {
             bufferedWriter.write(jsonArray.toString());
             bufferedWriter.close();
             Log.i("FILES", "SAVED");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void removeDataJSON(String filename, String name) {
+        JSONArray jsonArray;
+        try {
+            String response = getJsonArrayFromFile(filename);
+            jsonArray = new JSONArray(response);
+
+        } catch (IOException | JSONException e) {
+            jsonArray = new JSONArray();
+        }
+
+        int existingIndex = findExistingLocationIndex(jsonArray, name);
+
+        if (existingIndex != -1) {
+            jsonArray.remove(existingIndex);
+        }
+
+        File file = new File(getApplicationContext().getFilesDir(), filename);
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(jsonArray.toString());
+            bufferedWriter.close();
+            Log.i("REMOVER", "SAVED");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
