@@ -1,7 +1,5 @@
 package com.example.weather_mobile_app.Utils;
 
-import android.util.Log;
-
 import com.example.weather_mobile_app.R;
 
 public class WeatherIcons {
@@ -25,7 +23,6 @@ public class WeatherIcons {
     public static final String IC_50N = "50n";
 
     public static int getIconResource(String id) {
-//        Log.i("icon", id);
         switch (id) {
             case IC_01D:
                 return R.drawable.ic_01d;

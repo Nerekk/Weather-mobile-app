@@ -7,7 +7,6 @@ import static com.example.weather_mobile_app.WeatherAPI.Models.Forecast.Forecast
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -77,13 +76,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         configuration = getResources().getConfiguration();
-        Log.i("CONFIG", "SSW: " + configuration.smallestScreenWidthDp);
 
         loadSharedPreferences();
 
         createFragmentList();
 
-        // Instantiate a ViewPager2 and a PagerAdapter.
         viewPagerHandle();
 
         if (configuration.smallestScreenWidthDp < 460)
@@ -92,16 +89,11 @@ public class MainActivity extends AppCompatActivity {
         mainActivity = this;
 
         prepareAPIService();
-//        getAPIData();
-//        getDataOffline();
-
-//        ((ScreenSlidePagerAdapter)pagerAdapter).updateApi(dataPack);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        Log.i("ONRESUME", "ONR");
 
         thread = new TimerThread();
         thread.start();
@@ -110,10 +102,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        thread.interrupt();
 
+        thread.interrupt();
         saveSharedPreferences();
-//        Log.i("ONPAUSE", "ONP");
     }
 
     public void restartThread() {
@@ -127,9 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
     public CurrentWeatherJsonHolder getCurrentDataOffline() {
         CurrentWeatherJsonHolder holder1 = loadCurrentJSON();
-//        if (holder1.getTemp().equals("No data")) {
-//            writeToast("There is no saved data for this localization");
-//        }
+
         return holder1;
     }
 
@@ -140,7 +129,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void saveSharedPreferences() {
         SharedPreferences.Editor editor = getSharedPreferences(SP_FILE, MODE_PRIVATE).edit();
-         // "key" to nazwa klucza, a myValue to wartość do zapisania
 
         editor.putInt("keyInit", 1);
 
@@ -193,15 +181,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getCityNameFromApi(String city, CityNameListener listener) {
-//        Log.i("CITYAPI", city);
         apiService.getCurrentWeather(AppConfig.getUnitsType(), city).enqueue(new Callback<CurrentWeatherData>() {
             @Override
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
                 if (response.isSuccessful()){
-//                    Log.i("GETCITY", "S");
                     listener.onCityNameReceived(response.body().getName());
                 } else {
-//                    Log.i("GETCITY", "F");
                     listener.onCityNameReceived("0");
                 }
             }
@@ -221,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
         apiService.getCurrentWeather(AppConfig.getUnitsType(), AppConfig.getCurrentLoc()).enqueue(new Callback<CurrentWeatherData>() {
             @Override
             public void onResponse(Call<CurrentWeatherData> call, Response<CurrentWeatherData> response) {
-//                Log.i("Success", call.request().url() + " | hej " + String.valueOf(response.body().getName()));
                 if (response.isSuccessful()) {
                     ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(response.body());
                     CurrentWeatherJsonHolder holder = ((ScreenSlidePagerAdapter)pagerAdapter).getApiCurrent();
@@ -229,22 +213,18 @@ public class MainActivity extends AppCompatActivity {
                     writeToast("Api called");
                 } else {
                     ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(new CurrentWeatherJsonHolder());
-//                    writeToast("Something went wrong with api!");
                 }
 
             }
 
             @Override
             public void onFailure(Call<CurrentWeatherData> call, Throwable throwable) {
-//                Log.i("Error current", Objects.requireNonNull(throwable.getCause()).getMessage() + " | " + throwable.getMessage());
-
                 CurrentWeatherJsonHolder holder = loadCurrentJSON();
                 if (holder.getTemp().equals("No data")) {
                     writeToast("There is no saved data for this localization");
                 } else {
                     writeToast("JSON data loaded");
                 }
-//                Log.i("HOLDER", holder.toString());
                 ((ScreenSlidePagerAdapter)pagerAdapter).updateApiCurrent(holder);
             }
         });
@@ -252,11 +232,9 @@ public class MainActivity extends AppCompatActivity {
         apiService.getForecastWeather(AppConfig.getUnitsType(), AppConfig.getCurrentLoc()).enqueue(new Callback<ForecastWeatherData>() {
             @Override
             public void onResponse(Call<ForecastWeatherData> call, Response<ForecastWeatherData> response) {
-//                Log.i("Success2", call.request().url() + " | hej " + String.valueOf(response.body().getCity().getName()));
                 if (response.isSuccessful()) {
                     ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(response.body());
                     ForecastWeatherJsonHolder holder = ((ScreenSlidePagerAdapter)pagerAdapter).getApiForecast();
-//                    Log.i("ONLINE SAVE FORECAST", holder.toString());
                     saveOrUpdateJSON(holder);
                 } else {
                     ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(new ForecastWeatherJsonHolder());
@@ -265,11 +243,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ForecastWeatherData> call, Throwable throwable) {
-//                Log.i("Error forecast", throwable.getMessage());
-
                 ForecastWeatherJsonHolder holder = loadForecastJSON();
-//                Log.i("HOLDER_FORECAST", holder.toString());
-
                 ((ScreenSlidePagerAdapter)pagerAdapter).updateApiForecast(holder);
             }
         });
@@ -293,13 +267,9 @@ public class MainActivity extends AppCompatActivity {
         JSONArray jsonArray;
         try {
             String response = getJsonArrayFromFile(JSON_CURRENT);
-
-//            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_CURRENT)));
             jsonArray = new JSONArray(response);
-//            Log.i("FILE_LOAD", "FOUND");
         } catch (IOException | JSONException e) {
             jsonArray = new JSONArray();
-//            Log.i("FILE_LOAD", "NOT FOUND");
         }
 
         JSONObject localization = createJsonObject(data);
@@ -317,7 +287,6 @@ public class MainActivity extends AppCompatActivity {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(jsonArray.toString());
             bufferedWriter.close();
-//            Log.i("FILES", "SAVED");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -365,7 +334,6 @@ public class MainActivity extends AppCompatActivity {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(jsonArray.toString());
             bufferedWriter.close();
-//            Log.i("FILES", "SAVED");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -393,7 +361,6 @@ public class MainActivity extends AppCompatActivity {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             bufferedWriter.write(jsonArray.toString());
             bufferedWriter.close();
-//            Log.i("REMOVER", "SAVED");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -443,7 +410,6 @@ public class MainActivity extends AppCompatActivity {
                     visibility,
                     pressure
             );
-//            Log.i("HOLDER", holder.toString());
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -457,7 +423,6 @@ public class MainActivity extends AppCompatActivity {
             String name = data.getString(C_NAME);
             JSONArray jsonArray = data.getJSONArray(F_RECORDS);
             List<ForecastRecordJsonHolder> records = new ArrayList<>();
-
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject object = jsonArray.getJSONObject(i);
                 records.add(new ForecastRecordJsonHolder(
@@ -466,13 +431,10 @@ public class MainActivity extends AppCompatActivity {
                         object.getString(F_ICON),
                         object.getString(F_TEMP)
                         ));
-//                Log.i("RECORD JSON", object.toString());
             }
 
             holder = new ForecastWeatherJsonHolder(name);
             holder.setRecords(records);
-
-//            Log.i("HOLDER", holder.toString());
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -484,17 +446,14 @@ public class MainActivity extends AppCompatActivity {
         try {
             String response = getJsonArrayFromFile(JSON_FORECAST);
             JSONArray jsonArray = new JSONArray(response);
-//            Log.i("JSON_FINDING", FavouritesFragment.getSetLoc());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject locationJson = jsonArray.getJSONObject(i);
                 String cityName = locationJson.getString(C_NAME);
-//                Log.i("JSON_LOAD", cityName);
                 if (cityName.equals(AppConfig.getCurrentLoc())) {
                     return jsonToHolderTransferForecast(locationJson);
                 }
             }
         } catch (IOException | JSONException e) {
-            Log.i("EXCEPTION", "Here");
             e.printStackTrace();
         }
         return new ForecastWeatherJsonHolder();
@@ -502,20 +461,16 @@ public class MainActivity extends AppCompatActivity {
 
     public CurrentWeatherJsonHolder loadCurrentJSON() {
         try {
-//            String jsonContent = new String(Files.readAllBytes(Paths.get(JSON_FORECAST)));
             String response = getJsonArrayFromFile(JSON_CURRENT);
             JSONArray jsonArray = new JSONArray(response);
-//            Log.i("JSON_FINDING", FavouritesFragment.getSetLoc());
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject locationJson = jsonArray.getJSONObject(i);
                 String cityName = locationJson.getString(C_NAME);
-//                Log.i("JSON_LOAD", cityName);
                 if (cityName.equals(AppConfig.getCurrentLoc())) {
                     return jsonToHolderTransfer(locationJson);
                 }
             }
         } catch (IOException | JSONException e) {
-//            Log.i("EXCEPTION", "Here");
             e.printStackTrace();
         }
         return new CurrentWeatherJsonHolder();
@@ -529,7 +484,6 @@ public class MainActivity extends AppCompatActivity {
             object.put(C_COORDS, data.getCoords());
             object.put(C_DATE, data.getDate());
             object.put(C_ICON, data.getIcon());
-//            Log.i("ICON CHECK", data.getIcon());
             object.put(C_DESC, data.getDesc());
             object.put(C_TEMP, data.getTemp());
             object.put(C_WIND_DEGREE, data.getWindDegree());
@@ -538,7 +492,6 @@ public class MainActivity extends AppCompatActivity {
             object.put(C_VISIBILITY, data.getVisibility());
             object.put(C_PRESSURE, data.getPressure());
         } catch (JSONException e) {
-//            Log.i("EXCEPTION", "Here2");
             e.printStackTrace();
         }
         return object;
@@ -568,7 +521,6 @@ public class MainActivity extends AppCompatActivity {
     private void viewPagerHandle() {
         viewPager = findViewById(R.id.pager);
         pagerAdapter = new ScreenSlidePagerAdapter(this, fragmentList);
-        Log.i("PAGER_ADAPTER", "CHECK");
         viewPager.setSaveFromParentEnabled(false);
         viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(pagerAdapter);

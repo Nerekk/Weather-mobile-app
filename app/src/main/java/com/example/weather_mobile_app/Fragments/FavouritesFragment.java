@@ -4,13 +4,9 @@ import static com.example.weather_mobile_app.MainActivity.JSON_CURRENT;
 import static com.example.weather_mobile_app.MainActivity.JSON_FORECAST;
 
 import android.app.Dialog;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -46,7 +41,6 @@ public class FavouritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favourites_main, container, false);
         arrayList = MainActivity.getMainActivity().recoverFavList();
-//        prepareComponents(view);
         return view;
     }
 
@@ -58,7 +52,6 @@ public class FavouritesFragment extends Fragment {
 
     private static void prepareComponents(View view) {
         currentLoc = view.findViewById(R.id.tvCurrentLoc);
-        Log.i("FAVOURITES", "1.PREPARE");
         updateCurrentLocalization(false);
 
         locs = (ListView) view.findViewById(R.id.lvLocs);
@@ -69,13 +62,10 @@ public class FavouritesFragment extends Fragment {
         locs.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                parent.getChildAt(savedItemPos).setBackgroundColor(Color.TRANSPARENT);
-//                view.setBackgroundColor(Color.GREEN);
-//                Log.i("ITEMEK", ((TextView)view).getText().toString());
                 String current = ((TextView)view).getText().toString();
                 AppConfig.setCurrentLoc(current);
                 currentLoc.setText(current);
-                Log.i("FAVOURITES", "1.GETAPI");
+
                 MainActivity.getMainActivity().getAPIData();
             }
         });
@@ -97,7 +87,6 @@ public class FavouritesFragment extends Fragment {
             currentLoc.setText("Not set");
         }
         if (refresh) MainActivity.getMainActivity().getAPIData();
-        Log.i("FAVOURITES", "2.GETAPI");
     }
 
     private static void dialogAdd(ImageView ivAdd) {
@@ -169,24 +158,17 @@ public class FavouritesFragment extends Fragment {
 
                 dialog.show();
 
-                // Initialize and assign variable
                 ListView listView=dialog.findViewById(R.id.list_view);
 
-                // Initialize array adapter
-//                ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.getMainActivity(), android.R.layout.simple_list_item_1,arrayList);
-
-                // set adapter
                 listView.setAdapter(adapter);
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String deletedItem = arrayList.get(position);
-//                        Log.i("DELETE", "DELETING: " + deletedItem);
                         if (Objects.equals(deletedItem, AppConfig.getCurrentLoc())) {
                             AppConfig.setCurrentLoc(null);
                             updateCurrentLocalization(true);
-                            Log.i("FAVOURITES", "2.ITEM_CLICK");
                         }
                         MainActivity.getMainActivity().removeDataJSON(JSON_CURRENT, deletedItem);
                         MainActivity.getMainActivity().removeDataJSON(JSON_FORECAST, deletedItem);
@@ -214,7 +196,6 @@ public class FavouritesFragment extends Fragment {
     }
 
     public static Set<String> arrayListToSet() {
-        // Tworzymy nowy HashSet i dodajemy wszystkie elementy z ArrayList do niego
         return new HashSet<>(arrayList);
     }
 }

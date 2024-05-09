@@ -1,8 +1,6 @@
 package com.example.weather_mobile_app.Fragments;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +46,6 @@ public class SettingsFragment extends Fragment {
             public void onClick(View view) {
                 MainActivity.getMainActivity().restartThread();
                 MainActivity.getMainActivity().getAPIData();
-                Log.i("SETTINGS", "3.GETAPI");
             }
         });
 
@@ -75,7 +72,6 @@ public class SettingsFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 AppConfig.setUnitsIndex(position);
                 MainActivity.getMainActivity().getAPIData();
-                Log.i("SETTINGS", "4.GETAPI");
                 updateUnitInfo();
                 MainActivity.writeToast("Units set: " + unitList.get(position));
             }

@@ -28,8 +28,6 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
     TextView tvTemp, tvCoords, tvDesc, tvCity, tvClock;
     ImageView ivWeather;
 
-    String currentIcon;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,8 +75,6 @@ public class WeatherFragmentBasic extends Fragment implements WeatherFragmentSer
         String desc = String.valueOf(data.getWeather().get(0).getMain());
         String city = FavouritesFragment.getSetLoc();
         String icon = data.getWeather().get(0).getIcon();
-//        String city = String.valueOf(data.getName());
-//        AppConfig.setCurrentLoc(city);
 
         String clock = convertTime(data);
         tvTemp.setText(temp);
