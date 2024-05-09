@@ -140,8 +140,10 @@ public class WeatherFragmentForecast extends Fragment implements WeatherFragment
     }
 
     private String getDayName(ZonedDateTime zonedDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE", Locale.getDefault());
-        return zonedDateTime.format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE", Locale.ENGLISH);
+        String day = zonedDateTime.format(formatter);
+        day = day.substring(0, 1).toUpperCase() + day.substring(1);
+        return day;
     }
 
     public List<String> getTvDays() {
